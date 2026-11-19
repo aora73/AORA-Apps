@@ -5,137 +5,270 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AORA Tides – K’gari 75 Mile Beach 2027</title>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; max-width: 800px; margin: 2rem auto; padding: 0 1rem; background: #f8f6f1; color: #1a1a1a; }
-    h1 { color: #0d3b2e; border-bottom: 3px solid #2a9d8f; padding-bottom: 0.3em; }
-    h2 { color: #264653; margin-top: 2em; }
-    h3 { color: #1d3557; }
-    .note { background: #e9f5f3; border-left: 4px solid #2a9d8f; padding: 0.8rem 1rem; margin: 1rem 0; }
-    .best { background: #d4edda; padding: 0.2em 0.5em; border-radius: 4px; font-weight: 600; }
-    .low { color: #0d6e6e; font-weight: 600; }
-    .high { color: #b08968; }
-    .ph { background: #fff3cd; padding: 0.1em 0.4em; border-radius: 3px; }
-    .entry { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #ddd; }
-    footer { margin-top: 3rem; font-size: 0.85rem; color: #666; }
+    :root {
+      --teal: #0d6e6e;
+      --ochre: #b08968;
+      --ink: #1a1a1a;
+      --paper: #f8f6f1;
+      --accent: #2a9d8f;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1.2rem;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    h1 { color: #0d3b2e; border-bottom: 3px solid var(--accent); padding-bottom: 0.4em; margin-bottom: 0.2em; }
+    h2 { color: #264653; margin-top: 2.2em; }
+    h3 { color: #1d3557; margin-bottom: 0.3em; }
+    .intro { font-size: 1.05em; }
+    .note {
+      background: #e9f5f3;
+      border-left: 4px solid var(--accent);
+      padding: 0.9rem 1.1rem;
+      margin: 1.2rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .best {
+      background: #d4edda;
+      padding: 0.35em 0.7em;
+      border-radius: 5px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0.5em 0 1em;
+    }
+    .low { color: var(--teal); font-weight: 600; }
+    .high { color: var(--ochre); }
+    .ph { background: #fff3cd; padding: 0.1em 0.45em; border-radius: 3px; font-weight: 600; }
+    .entry {
+      margin-bottom: 1.6rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .rise { color: #555; font-size: 0.95em; }
+    footer {
+      margin-top: 3.5rem;
+      font-size: 0.85rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+    }
   </style>
 </head>
 <body>
   <h1>AORA Tides</h1>
-  <p><strong>Saturday tides – 2027</strong><br>
+  <p class="intro"><strong>Saturday tides</strong><br>
   Every Saturday in 2027. The low tide, and the high tide that comes after it.</p>
 
   <div class="note">
-    <strong>Daylight low:</strong> Every low ≤ 0.50 m during daylight (≈06:00–17:30 AEST).<br>
-    <strong>Location:</strong> K’gari · 75 Mile Beach (open coast on the east side of K’gari). Use this for 75 Mile Beach and the rocky headlands.<br>
-    <strong>Note:</strong> Rainbow Beach has no Bureau gauge — use this open-coast data, not Urangan, Kingfisher Bay or Tin Can Bay.<br>
+    <strong>Daylight low</strong> — Every low 0.50 m and under (daylight ≈ 06:00–17:30 AEST).<br>
+    <strong>K’gari · 75 Mile Beach</strong><br>
+    Open coast on the east side of K’gari. Use this for 75 Mile Beach and the rocky headlands.<br>
+    Rainbow Beach has no Bureau gauge — use this open-coast data, not Urangan, Kingfisher Bay or Tin Can Bay.<br>
     Heights in metres above Lowest Astronomical Tide. Predictions © Commonwealth of Australia (Bureau of Meteorology) via Maritime Safety Queensland. Wind, swell and air pressure affect actual levels — always read the beach on the day.
   </div>
 
   <h2>January</h2>
-  <p class="best">Best daylight: Sat 23 Jan · 0.40 m</p>
+  <p class="best">Best daylight Sat 23 Jan · 0.40 m</p>
+
   <div class="entry">
-    <h3>Sat 2 Jan <span class="ph">PH</span> · high tide between 09:30 and 18:00 · New Year’s Day long weekend</h3>
-    <p>5h 01m rise</p>
-    <p>Low tide <span class="low">10:44 · 1.00 m</span> → <span class="high">15:45 · 1.32 m</span></p>
-    <p>Also 22:08 · 0.64 m → Sun 3 Jan 05:29 · 1.79 m</p>
+    <h3>Sat 2 Jan <span class="ph">PH</span>, high tide between 09:30 and 18:00, New Year’s Day long weekend</h3>
+    <p class="rise">5h 01m rise</p>
+    <p>Low tide <span class="low">10:44 · 1.00 m</span> → <span class="high">15:45 · 1.32 m</span><br>
+    Daylight low<br>
+    Also 22:08 · 0.64 m → Sun 3 Jan 05:29 · 1.79 m</p>
   </div>
+
   <div class="entry">
     <h3>Sat 9 Jan</h3>
-    <p>5h 23m rise</p>
-    <p>Low tide <span class="low">15:37 · 0.64 m</span> → <span class="high">21:00 · 1.33 m</span></p>
-    <p>Daylight low. Also 01:58 · 0.51 m → 09:01 · 1.99 m</p>
+    <p class="rise">5h 23m rise</p>
+    <p>Low tide <span class="low">15:37 · 0.64 m</span> → <span class="high">21:00 · 1.33 m</span><br>
+    Daylight low<br>
+    Also 01:58 · 0.51 m → 09:01 · 1.99 m</p>
   </div>
+
   <div class="entry">
-    <h3>Sat 16 Jan · high tide between 09:30 and 18:00</h3>
-    <p>5h 44m rise</p>
-    <p>Low tide <span class="low">07:41 · 0.99 m</span> → <span class="high">13:25 · 1.45 m</span></p>
-    <p>Also 20:08 · 0.59 m → Sun 17 Jan 03:22 · 1.59 m</p>
+    <h3>Sat 16 Jan, high tide between 09:30 and 18:00</h3>
+    <p class="rise">5h 44m rise</p>
+    <p>Low tide <span class="low">07:41 · 0.99 m</span> → <span class="high">13:25 · 1.45 m</span><br>
+    Daylight low<br>
+    Also 20:08 · 0.59 m → Sun 17 Jan 03:22 · 1.59 m</p>
   </div>
+
   <div class="entry">
     <h3>Sat 23 Jan</h3>
-    <p>5h 46m rise</p>
-    <p>Low tide <span class="low">15:06 · 0.40 m</span> → <span class="high">20:52 · 1.53 m</span></p>
-    <p>Daylight low (best of month). Also 01:45 · 0.26 m → 08:30 · 2.37 m</p>
+    <p class="rise">5h 46m rise</p>
+    <p>Low tide <span class="low">15:06 · 0.40 m</span> → <span class="high">20:52 · 1.53 m</span><br>
+    Daylight low (best of month)<br>
+    Also 01:45 · 0.26 m → 08:30 · 2.37 m</p>
   </div>
+
   <div class="entry">
-    <h3>Sat 30 Jan · high tide between 09:30 and 18:00</h3>
-    <p>4h 41m rise</p>
-    <p>Low tide <span class="low">09:10 · 1.10 m</span> → <span class="high">13:51 · 1.32 m</span></p>
-    <p>Also 20:25 · 0.78 m → Sun 31 Jan 04:08 · 1.70 m</p>
+    <h3>Sat 30 Jan, high tide between 09:30 and 18:00</h3>
+    <p class="rise">4h 41m rise</p>
+    <p>Low tide <span class="low">09:10 · 1.10 m</span> → <span class="high">13:51 · 1.32 m</span><br>
+    Daylight low<br>
+    Also 20:25 · 0.78 m → Sun 31 Jan 04:08 · 1.70 m</p>
   </div>
 
   <h2>February</h2>
-  <p class="best">Best daylight: Sat 20 Feb · 0.43 m</p>
+  <p class="best">Best daylight Sat 20 Feb · 0.43 m</p>
+
   <div class="entry">
     <h3>Sat 6 Feb</h3>
-    <p>5h 40m rise</p>
-    <p>Low tide <span class="low">14:35 · 0.61 m</span> → <span class="high">20:15 · 1.42 m</span></p>
-    <p>Daylight low. Also 01:12 · 0.51 m → 08:07 · 1.99 m</p>
+    <p class="rise">5h 40m rise</p>
+    <p>Low tide <span class="low">14:35 · 0.61 m</span> → <span class="high">20:15 · 1.42 m</span><br>
+    Daylight low<br>
+    Also 01:12 · 0.51 m → 08:07 · 1.99 m</p>
   </div>
+
   <div class="entry">
-    <h3>Sat 13 Feb · high tide between 09:30 and 18:00</h3>
-    <p>6h 00m rise</p>
-    <p>Low tide 05:57 · 0.95 m → 11:57 · 1.50 m (outside 06:00–17:30)</p>
-    <p>Also 18:16 · 0.65 m → Sun 14 Feb 01:17 · 1.63 m</p>
+    <h3>Sat 13 Feb, high tide between 09:30 and 18:00</h3>
+    <p class="rise">6h 00m rise</p>
+    <p>Low tide 05:57 · 0.95 m → 11:57 · 1.50 m<br>
+    This low is outside 06:00–17:30<br>
+    Also 18:16 · 0.65 m → Sun 14 Feb 01:17 · 1.63 m</p>
   </div>
+
   <div class="entry">
     <h3>Sat 20 Feb</h3>
-    <p>5h 51m rise</p>
-    <p>Low tide <span class="low">13:56 · 0.43 m</span> → <span class="high">19:47 · 1.60 m</span></p>
-    <p>Daylight low (best of month). Also 00:47 · 0.35 m → 07:25 · 2.27 m</p>
+    <p class="rise">5h 51m rise</p>
+    <p>Low tide <span class="low">13:56 · 0.43 m</span> → <span class="high">19:47 · 1.60 m</span><br>
+    Daylight low (best of month)<br>
+    Also 00:47 · 0.35 m → 07:25 · 2.27 m</p>
   </div>
+
   <div class="entry">
-    <h3>Sat 27 Feb · high tide between 09:30 and 18:00</h3>
-    <p>4h 57m rise</p>
-    <p>Low tide <span class="low">07:14 · 1.07 m</span> → <span class="high">12:11 · 1.38 m</span></p>
-    <p>Also 18:17 · 0.82 m → Sun 28 Feb 01:46 · 1.71 m</p>
+    <h3>Sat 27 Feb, high tide between 09:30 and 18:00</h3>
+    <p class="rise">4h 57m rise</p>
+    <p>Low tide <span class="low">07:14 · 1.07 m</span> → <span class="high">12:11 · 1.38 m</span><br>
+    Daylight low<br>
+    Also 18:17 · 0.82 m → Sun 28 Feb 01:46 · 1.71 m</p>
   </div>
 
   <h2>March</h2>
-  <p class="best">Best daylight: Sat 20 Mar · 0.49 m</p>
+  <p class="best">Best daylight Sat 20 Mar · 0.49 m</p>
+
   <div class="entry">
     <h3>Sat 6 Mar</h3>
-    <p>5h 53m rise</p>
-    <p>Low tide <span class="low">13:23 · 0.59 m</span> → <span class="high">19:16 · 1.50 m</span></p>
-    <p>Daylight low. Also 00:13 · 0.60 m → 06:58 · 1.93 m</p>
-  </div>
-  <div class="entry">
-    <h3>Sat 13 Mar · high tide between 09:30 and 18:00</h3>
-    <p>6h 58m rise</p>
-    <p>Low tide <span class="low">16:44 · 0.62 m</span> → <span class="high">23:42 · 1.82 m</span></p>
-    <p>Daylight low. Also 04:48 · 0.86 m → 10:50 · 1.51 m</p>
-  </div>
-  <div class="entry">
-    <h3>Sat 20 Mar</h3>
-    <p>6h 04m rise</p>
-    <p>Low tide <span class="low">12:46 · 0.49 m</span> → <span class="high">18:50 · 1.65 m</span></p>
-    <p>Daylight low (best of month)</p>
-  </div>
-  <div class="entry">
-    <h3>Sat 27 Mar <span class="ph">PH</span> · high tide between 09:30 and 18:00 · Easter Saturday</h3>
-    <p>7h 21m rise</p>
-    <p>Low tide <span class="low">16:24 · 0.76 m</span> → <span class="high">23:45 · 1.88 m</span></p>
-    <p>Daylight low. Also 05:30 · 0.96 m → 10:48 · 1.42 m</p>
+    <p class="rise">5h 53m rise</p>
+    <p>Low tide <span class="low">13:23 · 0.59 m</span> → <span class="high">19:16 · 1.50 m</span><br>
+    Daylight low<br>
+    Also 00:13 · 0.60 m → 06:58 · 1.93 m</p>
   </div>
 
-  <h2>April – December summary</h2>
-  <p>Best daylight lows:</p>
+  <div class="entry">
+    <h3>Sat 13 Mar, high tide between 09:30 and 18:00</h3>
+    <p class="rise">6h 58m rise</p>
+    <p>Low tide <span class="low">16:44 · 0.62 m</span> → <span class="high">23:42 · 1.82 m</span><br>
+    Daylight low<br>
+    Also 04:48 · 0.86 m → 10:50 · 1.51 m</p>
+  </div>
+
+  <div class="entry">
+    <h3>Sat 20 Mar</h3>
+    <p class="rise">6h 04m rise</p>
+    <p>Low tide <span class="low">12:46 · 0.49 m</span> → <span class="high">18:50 · 1.65 m</span><br>
+    Daylight low (best of month)</p>
+  </div>
+
+  <div class="entry">
+    <h3>Sat 27 Mar <span class="ph">PH</span>, high tide between 09:30 and 18:00, Easter Saturday</h3>
+    <p class="rise">7h 21m rise</p>
+    <p>Low tide <span class="low">16:24 · 0.76 m</span> → <span class="high">23:45 · 1.88 m</span><br>
+    Daylight low<br>
+    Also 05:30 · 0.96 m → 10:48 · 1.42 m</p>
+  </div>
+
+  <h2>April</h2>
+  <p class="best">Best daylight Sat 10 Apr · 0.55 m</p>
+  <div class="entry">
+    <h3>Sat 3 Apr</h3>
+    <p class="rise">6h 05m rise</p>
+    <p>Low tide <span class="low">12:08 · 0.62 m</span> → <span class="high">18:13 · 1.53 m</span><br>
+    Daylight low<br>
+    Also 23:45 · 0.66 m → Sun 4 Apr 06:11 · 1.83 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 10 Apr, high tide between 09:30 and 18:00</h3>
+    <p class="rise">7h 02m rise</p>
+    <p>Low tide <span class="low">15:32 · 0.55 m</span> → <span class="high">22:34 · 2.05 m</span><br>
+    Daylight low (best of month)<br>
+    Also 03:59 · 0.75 m → 09:52 · 1.50 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 17 Apr, high tide between 09:30 and 18:00</h3>
+    <p class="rise">6h 16m rise</p>
+    <p>Low tide <span class="low">11:38 · 0.56 m</span> → <span class="high">17:54 · 1.66 m</span><br>
+    Daylight low<br>
+    Also 23:33 · 0.64 m → Sun 18 Apr 05:50 · 1.91 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 24 Apr <span class="ph">PH</span>, high tide between 09:30 and 18:00, Anzac Day long weekend</h3>
+    <p class="rise">7h 17m rise</p>
+    <p>Low tide <span class="low">15:08 · 0.69 m</span> → <span class="high">22:25 · 2.02 m</span><br>
+    Daylight low<br>
+    Also 04:16 · 0.85 m → 09:40 · 1.42 m</p>
+  </div>
+
+  <h2>May</h2>
+  <p class="best">Best daylight Sat 8 May · 0.46 m</p>
+  <div class="entry">
+    <h3>Sat 1 May <span class="ph">PH</span>, high tide between 09:30 and 18:00, Labour Day long weekend</h3>
+    <p class="rise">6h 17m rise</p>
+    <p>Low tide <span class="low">10:49 · 0.69 m</span> → <span class="high">17:06 · 1.47 m</span><br>
+    Daylight low<br>
+    Also 22:28 · 0.85 m → Sun 2 May 04:47 · 1.68 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 8 May</h3>
+    <p class="rise">7h 02m rise</p>
+    <p>Low tide <span class="low">14:34 · 0.46 m</span> → <span class="high">21:36 · 2.21 m</span><br>
+    Daylight low (best of month)<br>
+    Also 03:13 · 0.65 m → 08:55 · 1.48 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 15 May, high tide between 09:30 and 18:00</h3>
+    <p class="rise">6h 27m rise</p>
+    <p>Low tide <span class="low">10:26 · 0.66 m</span> → <span class="high">16:53 · 1.60 m</span><br>
+    Daylight low<br>
+    Also 22:28 · 0.84 m → Sun 16 May 04:38 · 1.73 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 22 May</h3>
+    <p class="rise">7h 15m rise</p>
+    <p>Low tide <span class="low">14:15 · 0.67 m</span> → <span class="high">21:30 · 2.05 m</span><br>
+    Daylight low<br>
+    Also 03:30 · 0.78 m → 08:53 · 1.37 m</p>
+  </div>
+  <div class="entry">
+    <h3>Sat 29 May, high tide between 09:30 and 18:00</h3>
+    <p class="rise">6h 28m rise</p>
+    <p>Low tide <span class="low">09:14 · 0.77 m</span> → <span class="high">15:42 · 1.37 m</span><br>
+    Daylight low<br>
+    Also 20:45 · 0.97 m → Sun 30 May 03:11 · 1.56 m</p>
+  </div>
+
+  <h2>June – December</h2>
+  <p class="best">Best daylight lows for the rest of the year:</p>
   <ul>
-    <li>10 Apr · 0.55 m</li>
-    <li>8 May · 0.46 m</li>
-    <li>5 Jun · 0.42 m</li>
-    <li>3 Jul · 0.45 m</li>
-    <li>28 Aug · 0.58 m</li>
-    <li>18 Sep · 0.58 m</li>
-    <li>16 Oct · 0.50 m</li>
-    <li>13 Nov · 0.55 m</li>
-    <li>11 Dec · 0.71 m</li>
+    <li>Sat 5 Jun · 0.42 m</li>
+    <li>Sat 3 Jul · 0.45 m</li>
+    <li>Sat 28 Aug · 0.58 m</li>
+    <li>Sat 18 Sep · 0.58 m</li>
+    <li>Sat 16 Oct · 0.50 m</li>
+    <li>Sat 13 Nov · 0.55 m</li>
+    <li>Sat 11 Dec · 0.71 m</li>
   </ul>
-  <p>Public holidays and long weekends (Anzac Day, Labour Day, King’s Birthday, Christmas, etc.) are flagged where a high tide falls between 09:30 and 18:00.</p>
+  <p>Public holidays and long weekends (King’s Birthday, Christmas, etc.) are flagged on the original page where a high tide falls between 09:30 and 18:00. Full entry-by-entry detail for June–December follows the same format as January–May.</p>
 
   <footer>
     <p>AORA Tides · Australian Offroad Academy<br>
-    For beach-access and off-road planning on K’gari. Always verify conditions on the day.<br>
-    Predictions have no warranty of fitness for a particular purpose.</p>
+    For beach-access and off-road planning on K’gari 75 Mile Beach.<br>
+    Always verify conditions on the day. Predictions have no warranty of fitness for a particular purpose.</p>
   </footer>
 </body>
 </html>

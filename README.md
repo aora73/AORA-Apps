@@ -15,3 +15,10 @@ To publish via GitHub Pages:
 3. Branch: main, folder: /tides (or root if you move the file)
 
 Once enabled, it will be available at `https://aora73.github.io/AORA-Apps/tides/` (or similar).
+
+## Outback Music Trail 2027
+
+Traveller guide, published unchanged from the Cloudflare-ready pack.
+
+- Source: `music-trail/`
+- Live: https://aora73.github.io/AORA-Apps/music-trail/

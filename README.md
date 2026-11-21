@@ -18,7 +18,8 @@ Once enabled, it will be available at `https://aora73.github.io/AORA-Apps/tides/
 
 ## Outback Music Trail 2027
 
-Traveller guide, published unchanged from the Cloudflare-ready pack.
+Traveller guide. The site root redirects here.
 
-- Source: `music-trail/`
 - Live: https://aora73.github.io/AORA-Apps/music-trail/
+- Source in this repo: `music-trail/`
+- App repo: https://github.com/aora73/outback-music-trail

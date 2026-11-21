@@ -4,17 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Outback Music Trail 2027 – Traveller Guide</title>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Outback Music Trail 2027">
-<meta property="og:description" content="Self-drive musical road trip. Charleville to Mount Isa, 8–22 May 2027.">
-<meta property="og:url" content="https://aora73.github.io/AORA-Apps/music-trail/">
-<meta property="og:image" content="https://aora73.github.io/AORA-Apps/music-trail/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Outback Music Trail 2027">
-<meta name="twitter:description" content="Charleville to Mount Isa · 8–22 May 2027">
-<meta name="twitter:image" content="https://aora73.github.io/AORA-Apps/music-trail/og.jpg">
 <style>
   :root {
     --cream: #F5EDE0;
@@ -32,7 +21,7 @@
     background: var(--cream);
     color: var(--ink);
     line-height: 1.5;
-    padding-bottom: 70px;
+    padding-bottom: calc(7.25rem + env(safe-area-inset-bottom, 0px));
   }
   header {
     background: var(--dark);
@@ -55,7 +44,7 @@
     background: var(--dark);
     display: flex;
     justify-content: space-around;
-    padding: 0.4rem 0;
+    padding: 0.45rem 0.2rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
     z-index: 200;
     border-top: 1px solid #333;
   }
@@ -63,10 +52,12 @@
     background: none;
     border: none;
     color: #aaa;
-    font-size: 0.65rem;
-    padding: 0.25rem 0.1rem;
+    font-size: 0.62rem;
+    line-height: 1.15;
+    padding: 0.2rem 0;
     cursor: pointer;
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;

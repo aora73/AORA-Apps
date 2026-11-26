@@ -13,6 +13,7 @@
     --accent: #f2c14e;
     --danger: #e36a2c;
     --ok: #8eae62;
+    --gauge: #f2c14e;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -20,105 +21,158 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 11px;
+    padding: 8px;
     -webkit-user-select: none;
     user-select: none;
   }
   h1 {
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     color: var(--accent);
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
   }
-  .ver { text-align: center; font-size: 0.6rem; color: var(--muted); margin-bottom: 8px; }
+  .ver { text-align: center; font-size: 0.55rem; color: var(--muted); margin-bottom: 6px; }
+  .gauges {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 4px;
+  }
+  .gauge-wrap {
+    text-align: center;
+    flex: 1;
+  }
+  .gauge-label {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  svg.gauge { width: 100%; max-width: 160px; height: auto; }
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-bottom: 12px;
+    gap: 6px;
+    margin-bottom: 8px;
   }
   .card {
     background: var(--card);
-    border-radius: 10px;
-    padding: 10px 6px;
+    border-radius: 8px;
+    padding: 6px 4px;
     text-align: center;
   }
   .label {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.7px;
-    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+    margin-bottom: 1px;
   }
   .value {
-    font-size: 2rem;
+    font-size: 1.35rem;
     font-weight: 700;
     line-height: 1;
   }
   .unit {
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     color: var(--muted);
-    margin-top: 1px;
+    margin-top: 0;
   }
   .max {
-    font-size: 0.72rem;
+    font-size: 0.6rem;
     color: var(--accent);
-    margin-top: 5px;
-  }
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-bottom: 12px;
+    margin-top: 2px;
   }
   button {
     width: 100%;
-    padding: 14px;
-    font-size: 0.95rem;
+    padding: 12px;
+    font-size: 0.9rem;
     font-weight: 600;
     background: var(--danger);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
   }
   button:active { transform: scale(0.98); }
   .status {
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--muted);
-    margin-top: 7px;
-    min-height: 1.1em;
+    margin-top: 6px;
+    min-height: 1em;
   }
-  .perm-btn { background: var(--ok); margin-bottom: 9px; }
+  .perm-btn { background: var(--ok); margin-bottom: 6px; }
   .hidden { display: none; }
 </style>
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v6 · axes swapped · 1 Hz</div>
+  <div class="ver">v7 · visual gauges</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
-  <div class="grid">
-    <div class="card">
-      <div class="label">Pitch</div>
-      <div class="value" id="pitch">0</div>
-      <div class="unit">°</div>
-      <div class="max" id="maxPitch">max 0</div>
+  <div class="gauges">
+    <div class="gauge-wrap">
+      <svg class="gauge" viewBox="0 0 120 100" id="pitchGauge">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f2c14e"/>
+            <stop offset="100%" stop-color="#e36a2c"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"/>
+        <path id="pitchArc" d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-dasharray="125" stroke-dashoffset="62"/>
+        <g id="pitchIcon" transform="translate(60,55)">
+          <g transform="rotate(0)">
+            <rect x="-18" y="-6" width="36" height="12" rx="2" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <circle cx="-10" cy="6" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <circle cx="10" cy="6" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <path d="M-14 -6 L-8 -12 L8 -12 L14 -6" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+          </g>
+        </g>
+        <text x="60" y="92" text-anchor="middle" font-size="10" fill="#f2c14e" id="pitchVal">0°</text>
+      </svg>
+      <div class="gauge-label">PITCHING</div>
     </div>
-    <div class="card">
-      <div class="label">Roll</div>
-      <div class="value" id="roll">0</div>
-      <div class="unit">°</div>
-      <div class="max" id="maxRoll">max 0</div>
+    <div class="gauge-wrap">
+      <svg class="gauge" viewBox="0 0 120 100" id="rollGauge">
+        <path d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"/>
+        <path id="rollArc" d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-dasharray="125" stroke-dashoffset="62"/>
+        <g id="rollIcon" transform="translate(60,55)">
+          <g transform="rotate(0)">
+            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <circle cx="-10" cy="8" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <circle cx="10" cy="8" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <path d="M-12 -8 L-6 -14 L6 -14 L12 -8" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+            <circle cx="0" cy="-2" r="3" fill="none" stroke="#f2c14e" stroke-width="1"/>
+          </g>
+        </g>
+        <text x="60" y="92" text-anchor="middle" font-size="10" fill="#f2c14e" id="rollVal">0°</text>
+      </svg>
+      <div class="gauge-label">ROLLING</div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="grid">
+    <div class="card">
+      <div class="label">Pitch max</div>
+      <div class="value" id="maxPitch">0</div>
+      <div class="unit">°</div>
+    </div>
+    <div class="card">
+      <div class="label">Roll max</div>
+      <div class="value" id="maxRoll">0</div>
+      <div class="unit">°</div>
+    </div>
+  </div>
+
+  <div class="grid">
     <div class="card">
       <div class="label">Speed</div>
       <div class="value" id="speed">0</div>
@@ -129,37 +183,32 @@
       <div class="label">Distance</div>
       <div class="value" id="distance">0</div>
       <div class="unit">km</div>
-      <div class="max">total</div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="grid">
     <div class="card">
       <div class="label">Altitude</div>
       <div class="value" id="altitude">0</div>
       <div class="unit">m</div>
-      <div class="max">current</div>
     </div>
     <div class="card">
       <div class="label">Ascent rate</div>
       <div class="value" id="ascentRate">0</div>
       <div class="unit">m/min</div>
-      <div class="max">vertical</div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="grid">
     <div class="card">
       <div class="label">Total climb</div>
       <div class="value" id="totalClimb">0</div>
       <div class="unit">m</div>
-      <div class="max">up</div>
     </div>
     <div class="card">
       <div class="label">Total descent</div>
       <div class="value" id="totalDescent">0</div>
       <div class="unit">m</div>
-      <div class="max">down</div>
     </div>
   </div>
 
@@ -201,12 +250,25 @@ function getDisplayed() {
   };
 }
 
+function updateGauge(type, deg) {
+  const clamped = Math.max(-45, Math.min(45, deg));
+  const icon = $(type + 'Icon');
+  if (icon) icon.setAttribute('transform', `translate(60,55) rotate(${clamped})`);
+  const val = $(type + 'Val');
+  if (val) val.textContent = format(deg) + '°';
+  const arc = $(type + 'Arc');
+  if (arc) {
+    const offset = 62 - (clamped / 45) * 30;
+    arc.setAttribute('stroke-dashoffset', offset);
+  }
+}
+
 function updateUI() {
   const d = getDisplayed();
-  $('pitch').textContent = format(d.pitch);
-  $('roll').textContent = format(d.roll);
-  $('maxPitch').textContent = 'max ' + format(maxPitch);
-  $('maxRoll').textContent = 'max ' + format(maxRoll);
+  updateGauge('pitch', d.pitch);
+  updateGauge('roll', d.roll);
+  $('maxPitch').textContent = format(maxPitch);
+  $('maxRoll').textContent = format(maxRoll);
   $('speed').textContent = format(currentSpeed);
   $('maxSpeed').textContent = 'max ' + format(maxSpeed);
   $('distance').textContent = format(totalDistance / 1000);
@@ -232,7 +294,6 @@ function onMotion(e) {
   const y = acc.y || 0;
   const z = acc.z || 0;
 
-  // Swapped axes
   rawPitch = Math.atan2(y, z) * (180 / Math.PI);
   rawRoll  = Math.atan2(-x, Math.sqrt(y * y + z * z)) * (180 / Math.PI);
 

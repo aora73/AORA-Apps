@@ -99,7 +99,7 @@
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v5 · gravity-based pitch & roll</div>
+  <div class="ver">v6 · axes swapped · 1 Hz</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -187,6 +187,8 @@ let totalDescent = 0;
 let lastAltitude = null;
 let lastAltTime = null;
 
+let lastUIUpdate = 0;
+
 function format(n) {
   if (n == null || isNaN(n)) return '0';
   return Math.round(n).toString();
@@ -214,6 +216,14 @@ function updateUI() {
   $('totalDescent').textContent = format(totalDescent);
 }
 
+function maybeUpdateUI() {
+  const now = Date.now();
+  if (now - lastUIUpdate >= 1000) {
+    lastUIUpdate = now;
+    updateUI();
+  }
+}
+
 function onMotion(e) {
   const acc = e.accelerationIncludingGravity;
   if (!acc) return;
@@ -222,8 +232,9 @@ function onMotion(e) {
   const y = acc.y || 0;
   const z = acc.z || 0;
 
-  rawPitch = Math.atan2(-x, Math.sqrt(y * y + z * z)) * (180 / Math.PI);
-  rawRoll  = Math.atan2(y, z) * (180 / Math.PI);
+  // Swapped axes
+  rawPitch = Math.atan2(y, z) * (180 / Math.PI);
+  rawRoll  = Math.atan2(-x, Math.sqrt(y * y + z * z)) * (180 / Math.PI);
 
   hasMotion = true;
 
@@ -231,7 +242,7 @@ function onMotion(e) {
   maxPitch = Math.max(maxPitch, Math.abs(d.pitch));
   maxRoll = Math.max(maxRoll, Math.abs(d.roll));
 
-  updateUI();
+  maybeUpdateUI();
 }
 
 function haversine(lat1, lon1, lat2, lon2) {
@@ -271,7 +282,7 @@ function onPosition(pos) {
     lastAltTime = now;
   }
 
-  updateUI();
+  maybeUpdateUI();
   $('status').textContent = 'GPS active • accuracy ' + Math.round(c.accuracy) + 'm' +
     (c.altitude != null ? ' • alt ' + Math.round(c.altitude) + 'm' : '');
 }
@@ -330,6 +341,7 @@ function resetAll() {
   lastAltitude = currentAltitude;
   lastAltTime = Date.now();
 
+  lastUIUpdate = 0;
   updateUI();
   $('status').textContent = hasMotion
     ? 'Calibrated • variation from this point • climb/descent reset'

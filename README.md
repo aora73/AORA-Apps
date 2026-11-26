@@ -47,3 +47,10 @@ Safe work method and job safety analysis for a training day. Saves on the device
 Essay: You don’t have to conquer it. Moved off Netlify.
 
 - Live: https://aora73.github.io/AORA-Apps/dingos-diary/
+
+## AORA shelf
+
+The list of apps, guides and fact sheets. Add it to the home screen from Safari.
+
+- Live: https://aora73.github.io/AORA-Apps/shelf/
+- Repo: https://github.com/aora73/aora-shelf

@@ -41,12 +41,13 @@
   button:active { transform: scale(0.98); }
   .status { text-align: center; font-size: 0.65rem; color: var(--muted); margin-top: 6px; min-height: 1em; }
   .perm-btn { background: var(--ok); margin-bottom: 6px; }
+  .shot-btn { background: #2a3a4a; margin-top: 6px; }
   .hidden { display: none; }
 </style>
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v11 · pitch + / -</div>
+  <div class="ver">v12 · screenshot</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -116,8 +117,10 @@
   </div>
 
   <button id="resetBtn">Reset / Calibrate</button>
+  <button id="shotBtn" class="shot-btn">Save Screenshot</button>
   <div class="status" id="status">Tap Enable Sensors to start</div>
 
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 let maxPitchPos = 0, maxPitchNeg = 0, maxRoll = 0, maxSpeed = 0, totalDistance = 0, lastPos = null, watchId = null;
@@ -230,8 +233,29 @@ function resetAll() {
   $('status').textContent = hasMotion ? 'Calibrated • variation from this point • climb/descent reset' : 'No motion data yet — enable sensors first';
 }
 
+async function saveScreenshot() {
+  $('status').textContent = 'Capturing…';
+  try {
+    const canvas = await html2canvas(document.body, {
+      backgroundColor: '#0a0e12',
+      scale: 2,
+      useCORS: true
+    });
+    const link = document.createElement('a');
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    link.download = `attitude-${stamp}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    $('status').textContent = 'Screenshot saved';
+  } catch (e) {
+    $('status').textContent = 'Screenshot failed';
+    console.error(e);
+  }
+}
+
 $('permBtn').addEventListener('click', enableSensors);
 $('resetBtn').addEventListener('click', resetAll);
+$('shotBtn').addEventListener('click', saveScreenshot);
 updateUI();
 </script>
 </body>

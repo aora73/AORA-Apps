@@ -113,7 +113,7 @@
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v7 · visual gauges</div>
+  <div class="ver">v8 · improved icons</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -129,11 +129,14 @@
         <path d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"/>
         <path id="pitchArc" d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-dasharray="125" stroke-dashoffset="62"/>
         <g id="pitchIcon" transform="translate(60,55)">
-          <g transform="rotate(0)">
-            <rect x="-18" y="-6" width="36" height="12" rx="2" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <circle cx="-10" cy="6" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <circle cx="10" cy="6" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <path d="M-14 -6 L-8 -12 L8 -12 L14 -6" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
+          <g transform="rotate(0)" fill="none" stroke="#f2c14e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M-20 4 L-16 -2 L-12 -8 L-4 -10 L8 -10 L14 -6 L18 -2 L20 2 L20 6 L-20 6 Z"/>
+            <path d="M-10 -2 L-6 -8 L2 -8 L6 -4"/>
+            <circle cx="-12" cy="6" r="5"/>
+            <circle cx="10" cy="6" r="5"/>
+            <circle cx="-12" cy="6" r="2" fill="#f2c14e" stroke="none"/>
+            <circle cx="10" cy="6" r="2" fill="#f2c14e" stroke="none"/>
+            <path d="M-16 2 L-14 4"/>
           </g>
         </g>
         <text x="60" y="92" text-anchor="middle" font-size="10" fill="#f2c14e" id="pitchVal">0°</text>
@@ -145,12 +148,16 @@
         <path d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"/>
         <path id="rollArc" d="M20 70 A40 40 0 1 1 100 70" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-dasharray="125" stroke-dashoffset="62"/>
         <g id="rollIcon" transform="translate(60,55)">
-          <g transform="rotate(0)">
-            <rect x="-16" y="-8" width="32" height="16" rx="3" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <circle cx="-10" cy="8" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <circle cx="10" cy="8" r="4" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <path d="M-12 -8 L-6 -14 L6 -14 L12 -8" fill="none" stroke="#f2c14e" stroke-width="1.5"/>
-            <circle cx="0" cy="-2" r="3" fill="none" stroke="#f2c14e" stroke-width="1"/>
+          <g transform="rotate(0)" fill="none" stroke="#f2c14e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M-16 6 L-14 -4 L-10 -10 L10 -10 L14 -4 L16 6 Z"/>
+            <path d="M-12 -2 L-8 -8 L8 -8 L12 -2"/>
+            <rect x="-6" y="-6" width="12" height="6" rx="1"/>
+            <circle cx="-12" cy="8" r="4"/>
+            <circle cx="12" cy="8" r="4"/>
+            <circle cx="-12" cy="8" r="1.5" fill="#f2c14e" stroke="none"/>
+            <circle cx="12" cy="8" r="1.5" fill="#f2c14e" stroke="none"/>
+            <path d="M-4 0 L4 0"/>
+            <path d="M0 -4 L0 2"/>
           </g>
         </g>
         <text x="60" y="92" text-anchor="middle" font-size="10" fill="#f2c14e" id="rollVal">0°</text>

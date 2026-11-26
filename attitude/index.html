@@ -20,86 +20,86 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 12px;
+    padding: 11px;
     -webkit-user-select: none;
     user-select: none;
   }
   h1 {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     color: var(--accent);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
-  .ver { text-align: center; font-size: 0.65rem; color: var(--muted); margin-bottom: 10px; }
+  .ver { text-align: center; font-size: 0.6rem; color: var(--muted); margin-bottom: 8px; }
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 14px;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-bottom: 12px;
   }
   .card {
     background: var(--card);
-    border-radius: 12px;
-    padding: 12px 8px;
+    border-radius: 10px;
+    padding: 10px 6px;
     text-align: center;
   }
   .label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 4px;
+    letter-spacing: 0.7px;
+    margin-bottom: 3px;
   }
   .value {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     line-height: 1;
   }
   .unit {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--muted);
-    margin-top: 2px;
+    margin-top: 1px;
   }
   .max {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     color: var(--accent);
-    margin-top: 6px;
+    margin-top: 5px;
   }
   .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 9px;
+    margin-bottom: 12px;
   }
   button {
     width: 100%;
-    padding: 16px;
-    font-size: 1rem;
+    padding: 14px;
+    font-size: 0.95rem;
     font-weight: 600;
     background: var(--danger);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
   button:active { transform: scale(0.98); }
   .status {
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--muted);
-    margin-top: 8px;
-    min-height: 1.2em;
+    margin-top: 7px;
+    min-height: 1.1em;
   }
-  .perm-btn { background: var(--ok); margin-bottom: 10px; }
+  .perm-btn { background: var(--ok); margin-bottom: 9px; }
   .hidden { display: none; }
 </style>
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v3 · altitude & climb</div>
+  <div class="ver">v4 · pitch & roll</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -115,12 +115,6 @@
       <div class="value" id="roll">0</div>
       <div class="unit">°</div>
       <div class="max" id="maxRoll">max 0</div>
-    </div>
-    <div class="card">
-      <div class="label">Yaw</div>
-      <div class="value" id="yaw">0</div>
-      <div class="unit">°</div>
-      <div class="max" id="maxYaw">max 0</div>
     </div>
   </div>
 
@@ -175,14 +169,14 @@
 <script>
 const $ = id => document.getElementById(id);
 
-let maxPitch = 0, maxRoll = 0, maxYaw = 0;
+let maxPitch = 0, maxRoll = 0;
 let maxSpeed = 0;
 let totalDistance = 0;
 let lastPos = null;
 let watchId = null;
 
-let calPitch = 0, calRoll = 0, calYaw = 0;
-let rawPitch = 0, rawRoll = 0, rawYaw = 0;
+let calPitch = 0, calRoll = 0;
+let rawPitch = 0, rawRoll = 0;
 let hasOrientation = false;
 let currentSpeed = 0;
 
@@ -198,17 +192,10 @@ function format(n) {
   return Math.round(n).toString();
 }
 
-function angleDiff(from, to) {
-  let d = to - from;
-  d = ((d + 180) % 360) - 180;
-  return d;
-}
-
 function getDisplayed() {
   return {
     pitch: hasOrientation ? (rawPitch - calPitch) : 0,
-    roll: hasOrientation ? (rawRoll - calRoll) : 0,
-    yaw: hasOrientation ? angleDiff(calYaw, rawYaw) : 0
+    roll: hasOrientation ? (rawRoll - calRoll) : 0
   };
 }
 
@@ -216,10 +203,8 @@ function updateUI() {
   const d = getDisplayed();
   $('pitch').textContent = format(d.pitch);
   $('roll').textContent = format(d.roll);
-  $('yaw').textContent = format(d.yaw);
   $('maxPitch').textContent = 'max ' + format(maxPitch);
   $('maxRoll').textContent = 'max ' + format(maxRoll);
-  $('maxYaw').textContent = 'max ' + format(maxYaw);
   $('speed').textContent = format(currentSpeed);
   $('maxSpeed').textContent = 'max ' + format(maxSpeed);
   $('distance').textContent = format(totalDistance / 1000);
@@ -232,13 +217,11 @@ function updateUI() {
 function onOrientation(e) {
   if (e.beta != null) rawPitch = e.beta;
   if (e.gamma != null) rawRoll = e.gamma;
-  if (e.alpha != null) rawYaw = e.alpha;
   hasOrientation = true;
 
   const d = getDisplayed();
   maxPitch = Math.max(maxPitch, Math.abs(d.pitch));
   maxRoll = Math.max(maxRoll, Math.abs(d.roll));
-  maxYaw = Math.max(maxYaw, Math.abs(d.yaw));
 
   updateUI();
 }
@@ -323,12 +306,11 @@ function resetAll() {
   if (hasOrientation) {
     calPitch = rawPitch;
     calRoll = rawRoll;
-    calYaw = rawYaw;
   } else {
-    calPitch = calRoll = calYaw = 0;
+    calPitch = calRoll = 0;
   }
 
-  maxPitch = maxRoll = maxYaw = 0;
+  maxPitch = maxRoll = 0;
   maxSpeed = 0;
   totalDistance = 0;
   lastPos = null;

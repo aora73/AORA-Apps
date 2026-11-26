@@ -31,6 +31,7 @@
   .gauge-label { font-size: 0.65rem; color: var(--accent); letter-spacing: 0.8px; margin-top: 2px; font-weight: 600; }
   svg.gauge { width: 100%; max-width: 160px; height: auto; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
   .card { background: var(--card); border-radius: 8px; padding: 6px 4px; text-align: center; }
   .label { font-size: 0.55rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
   .value { font-size: 1.35rem; font-weight: 700; line-height: 1; }
@@ -45,7 +46,7 @@
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v10 · faithful icons</div>
+  <div class="ver">v11 · pitch + / -</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -96,8 +97,9 @@
     </div>
   </div>
 
-  <div class="grid">
-    <div class="card"><div class="label">Pitch max</div><div class="value" id="maxPitch">0</div><div class="unit">°</div></div>
+  <div class="grid3">
+    <div class="card"><div class="label">Pitch + max</div><div class="value" id="maxPitchPos">0</div><div class="unit">°</div></div>
+    <div class="card"><div class="label">Pitch - max</div><div class="value" id="maxPitchNeg">0</div><div class="unit">°</div></div>
     <div class="card"><div class="label">Roll max</div><div class="value" id="maxRoll">0</div><div class="unit">°</div></div>
   </div>
   <div class="grid">
@@ -118,7 +120,7 @@
 
 <script>
 const $ = id => document.getElementById(id);
-let maxPitch = 0, maxRoll = 0, maxSpeed = 0, totalDistance = 0, lastPos = null, watchId = null;
+let maxPitchPos = 0, maxPitchNeg = 0, maxRoll = 0, maxSpeed = 0, totalDistance = 0, lastPos = null, watchId = null;
 let calPitch = 0, calRoll = 0, rawPitch = 0, rawRoll = 0, hasMotion = false, currentSpeed = 0;
 let currentAltitude = 0, ascentRate = 0, totalClimb = 0, totalDescent = 0, lastAltitude = null, lastAltTime = null, lastUIUpdate = 0;
 
@@ -139,7 +141,8 @@ function updateUI() {
   const d = getDisplayed();
   updateGauge('pitch', d.pitch);
   updateGauge('roll', d.roll);
-  $('maxPitch').textContent = format(maxPitch);
+  $('maxPitchPos').textContent = format(maxPitchPos);
+  $('maxPitchNeg').textContent = format(Math.abs(maxPitchNeg));
   $('maxRoll').textContent = format(maxRoll);
   $('speed').textContent = format(currentSpeed);
   $('maxSpeed').textContent = 'max ' + format(maxSpeed);
@@ -163,7 +166,8 @@ function onMotion(e) {
   rawRoll  = Math.atan2(-x, Math.sqrt(y * y + z * z)) * (180 / Math.PI);
   hasMotion = true;
   const d = getDisplayed();
-  maxPitch = Math.max(maxPitch, Math.abs(d.pitch));
+  if (d.pitch > 0) maxPitchPos = Math.max(maxPitchPos, d.pitch);
+  if (d.pitch < 0) maxPitchNeg = Math.min(maxPitchNeg, d.pitch);
   maxRoll = Math.max(maxRoll, Math.abs(d.roll));
   maybeUpdateUI();
 }
@@ -220,7 +224,7 @@ async function enableSensors() {
 
 function resetAll() {
   if (hasMotion) { calPitch = rawPitch; calRoll = rawRoll; } else { calPitch = calRoll = 0; }
-  maxPitch = maxRoll = 0; maxSpeed = 0; totalDistance = 0; lastPos = null; currentSpeed = 0;
+  maxPitchPos = 0; maxPitchNeg = 0; maxRoll = 0; maxSpeed = 0; totalDistance = 0; lastPos = null; currentSpeed = 0;
   totalClimb = 0; totalDescent = 0; ascentRate = 0; lastAltitude = currentAltitude; lastAltTime = Date.now();
   lastUIUpdate = 0; updateUI();
   $('status').textContent = hasMotion ? 'Calibrated • variation from this point • climb/descent reset' : 'No motion data yet — enable sensors first';

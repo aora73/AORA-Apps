@@ -41,3 +41,9 @@ Blank workplace incident report. Saves on the device and can print to PDF.
 Safe work method and job safety analysis for a training day. Saves on the device.
 
 - Live: https://aora73.github.io/AORA-Apps/swm/
+
+## Dingo’s Diary
+
+Essay: You don’t have to conquer it. Moved off Netlify.
+
+- Live: https://aora73.github.io/AORA-Apps/dingos-diary/

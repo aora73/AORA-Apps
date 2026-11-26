@@ -61,3 +61,10 @@ Clickable fact sheet of the Drive Straya membership.
 
 - Live: https://aora73.github.io/AORA-Apps/drive-straya/
 - Source in this repo: `drive-straya/`
+
+## Offroad Attitude & Speed
+
+Live pitch, roll, yaw, speed and distance with maxima. Uses device orientation and GPS.
+
+- Live: https://aora73.github.io/AORA-Apps/attitude/
+- Source in this repo: `attitude/`

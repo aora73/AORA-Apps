@@ -99,7 +99,7 @@
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v2 · relative to calibration</div>
+  <div class="ver">v3 · altitude & climb</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -139,6 +139,36 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="card">
+      <div class="label">Altitude</div>
+      <div class="value" id="altitude">0</div>
+      <div class="unit">m</div>
+      <div class="max">current</div>
+    </div>
+    <div class="card">
+      <div class="label">Ascent rate</div>
+      <div class="value" id="ascentRate">0</div>
+      <div class="unit">m/min</div>
+      <div class="max">vertical</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="label">Total climb</div>
+      <div class="value" id="totalClimb">0</div>
+      <div class="unit">m</div>
+      <div class="max">up</div>
+    </div>
+    <div class="card">
+      <div class="label">Total descent</div>
+      <div class="value" id="totalDescent">0</div>
+      <div class="unit">m</div>
+      <div class="max">down</div>
+    </div>
+  </div>
+
   <button id="resetBtn">Reset / Calibrate</button>
   <div class="status" id="status">Tap Enable Sensors to start</div>
 
@@ -155,6 +185,13 @@ let calPitch = 0, calRoll = 0, calYaw = 0;
 let rawPitch = 0, rawRoll = 0, rawYaw = 0;
 let hasOrientation = false;
 let currentSpeed = 0;
+
+let currentAltitude = 0;
+let ascentRate = 0;
+let totalClimb = 0;
+let totalDescent = 0;
+let lastAltitude = null;
+let lastAltTime = null;
 
 function format(n) {
   if (n == null || isNaN(n)) return '0';
@@ -186,6 +223,10 @@ function updateUI() {
   $('speed').textContent = format(currentSpeed);
   $('maxSpeed').textContent = 'max ' + format(maxSpeed);
   $('distance').textContent = format(totalDistance / 1000);
+  $('altitude').textContent = format(currentAltitude);
+  $('ascentRate').textContent = format(ascentRate);
+  $('totalClimb').textContent = format(totalClimb);
+  $('totalDescent').textContent = format(totalDescent);
 }
 
 function onOrientation(e) {
@@ -213,6 +254,8 @@ function haversine(lat1, lon1, lat2, lon2) {
 
 function onPosition(pos) {
   const c = pos.coords;
+  const now = pos.timestamp || Date.now();
+
   currentSpeed = (c.speed != null && c.speed >= 0) ? c.speed * 3.6 : 0;
   if (currentSpeed) maxSpeed = Math.max(maxSpeed, currentSpeed);
 
@@ -221,8 +264,25 @@ function onPosition(pos) {
     if (dist > 1 && dist < 200) totalDistance += dist;
   }
   lastPos = { latitude: c.latitude, longitude: c.longitude };
+
+  if (c.altitude != null && (c.altitudeAccuracy == null || c.altitudeAccuracy < 30)) {
+    currentAltitude = c.altitude;
+    if (lastAltitude != null && lastAltTime != null) {
+      const dt = (now - lastAltTime) / 1000;
+      const dAlt = currentAltitude - lastAltitude;
+      if (dt > 0.5 && Math.abs(dAlt) > 0.5) {
+        ascentRate = (dAlt / dt) * 60;
+        if (dAlt > 1) totalClimb += dAlt;
+        else if (dAlt < -1) totalDescent += Math.abs(dAlt);
+      }
+    }
+    lastAltitude = currentAltitude;
+    lastAltTime = now;
+  }
+
   updateUI();
-  $('status').textContent = 'GPS active • accuracy ' + Math.round(c.accuracy) + 'm';
+  $('status').textContent = 'GPS active • accuracy ' + Math.round(c.accuracy) + 'm' +
+    (c.altitude != null ? ' • alt ' + Math.round(c.altitude) + 'm' : '');
 }
 
 function onPosError(err) {
@@ -274,9 +334,15 @@ function resetAll() {
   lastPos = null;
   currentSpeed = 0;
 
+  totalClimb = 0;
+  totalDescent = 0;
+  ascentRate = 0;
+  lastAltitude = currentAltitude;
+  lastAltTime = Date.now();
+
   updateUI();
   $('status').textContent = hasOrientation
-    ? 'Calibrated to current position • values are variation from this point'
+    ? 'Calibrated • variation from this point • climb/descent reset'
     : 'No orientation data yet — enable sensors first';
 }
 

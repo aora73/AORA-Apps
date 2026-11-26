@@ -28,10 +28,11 @@
     text-align: center;
     font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     color: var(--accent);
     letter-spacing: 0.5px;
   }
+  .ver { text-align: center; font-size: 0.65rem; color: var(--muted); margin-bottom: 10px; }
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -72,9 +73,6 @@
     gap: 10px;
     margin-bottom: 14px;
   }
-  .wide {
-    grid-column: span 2;
-  }
   button {
     width: 100%;
     padding: 16px;
@@ -87,9 +85,7 @@
     cursor: pointer;
     letter-spacing: 0.5px;
   }
-  button:active {
-    transform: scale(0.98);
-  }
+  button:active { transform: scale(0.98); }
   .status {
     text-align: center;
     font-size: 0.75rem;
@@ -97,15 +93,13 @@
     margin-top: 8px;
     min-height: 1.2em;
   }
-  .perm-btn {
-    background: var(--ok);
-    margin-bottom: 10px;
-  }
+  .perm-btn { background: var(--ok); margin-bottom: 10px; }
   .hidden { display: none; }
 </style>
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
+  <div class="ver">v2 · relative to calibration</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -156,11 +150,10 @@ let maxSpeed = 0;
 let totalDistance = 0;
 let lastPos = null;
 let watchId = null;
-let orientationActive = false;
 
 let calPitch = 0, calRoll = 0, calYaw = 0;
 let rawPitch = 0, rawRoll = 0, rawYaw = 0;
-let dispPitch = 0, dispRoll = 0, dispYaw = 0;
+let hasOrientation = false;
 let currentSpeed = 0;
 
 function format(n) {
@@ -170,19 +163,26 @@ function format(n) {
 
 function angleDiff(from, to) {
   let d = to - from;
-  while (d > 180) d -= 360;
-  while (d < -180) d += 360;
+  d = ((d + 180) % 360) - 180;
   return d;
 }
 
+function getDisplayed() {
+  return {
+    pitch: hasOrientation ? (rawPitch - calPitch) : 0,
+    roll: hasOrientation ? (rawRoll - calRoll) : 0,
+    yaw: hasOrientation ? angleDiff(calYaw, rawYaw) : 0
+  };
+}
+
 function updateUI() {
-  $('pitch').textContent = format(dispPitch);
-  $('roll').textContent = format(dispRoll);
-  $('yaw').textContent = format(dispYaw);
+  const d = getDisplayed();
+  $('pitch').textContent = format(d.pitch);
+  $('roll').textContent = format(d.roll);
+  $('yaw').textContent = format(d.yaw);
   $('maxPitch').textContent = 'max ' + format(maxPitch);
   $('maxRoll').textContent = 'max ' + format(maxRoll);
   $('maxYaw').textContent = 'max ' + format(maxYaw);
-
   $('speed').textContent = format(currentSpeed);
   $('maxSpeed').textContent = 'max ' + format(maxSpeed);
   $('distance').textContent = format(totalDistance / 1000);
@@ -192,21 +192,19 @@ function onOrientation(e) {
   if (e.beta != null) rawPitch = e.beta;
   if (e.gamma != null) rawRoll = e.gamma;
   if (e.alpha != null) rawYaw = e.alpha;
+  hasOrientation = true;
 
-  dispPitch = rawPitch - calPitch;
-  dispRoll = rawRoll - calRoll;
-  dispYaw = angleDiff(calYaw, rawYaw);
-
-  maxPitch = Math.max(maxPitch, Math.abs(dispPitch));
-  maxRoll = Math.max(maxRoll, Math.abs(dispRoll));
-  maxYaw = Math.max(maxYaw, Math.abs(dispYaw));
+  const d = getDisplayed();
+  maxPitch = Math.max(maxPitch, Math.abs(d.pitch));
+  maxRoll = Math.max(maxRoll, Math.abs(d.roll));
+  maxYaw = Math.max(maxYaw, Math.abs(d.yaw));
 
   updateUI();
 }
 
 function haversine(lat1, lon1, lat2, lon2) {
   const R = 6371000;
-  const toRad = d => d * Math.PI / 180;
+  const toRad = x => x * Math.PI / 180;
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
   const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
@@ -219,8 +217,8 @@ function onPosition(pos) {
   if (currentSpeed) maxSpeed = Math.max(maxSpeed, currentSpeed);
 
   if (lastPos && c.accuracy < 50) {
-    const d = haversine(lastPos.latitude, lastPos.longitude, c.latitude, c.longitude);
-    if (d > 1 && d < 200) totalDistance += d;
+    const dist = haversine(lastPos.latitude, lastPos.longitude, c.latitude, c.longitude);
+    if (dist > 1 && dist < 200) totalDistance += dist;
   }
   lastPos = { latitude: c.latitude, longitude: c.longitude };
   updateUI();
@@ -245,8 +243,7 @@ async function enableSensors() {
     }
   }
 
-  window.addEventListener('deviceorientation', onOrientation);
-  orientationActive = true;
+  window.addEventListener('deviceorientation', onOrientation, true);
 
   if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(onPosition, onPosError, {
@@ -259,15 +256,18 @@ async function enableSensors() {
   }
 
   $('permBtn').classList.add('hidden');
-  $('status').textContent = 'Sensors starting… Hold still and tap Reset to calibrate';
+  $('status').textContent = 'Hold still, then tap Reset / Calibrate to set zero';
 }
 
 function resetAll() {
-  calPitch = rawPitch;
-  calRoll = rawRoll;
-  calYaw = rawYaw;
+  if (hasOrientation) {
+    calPitch = rawPitch;
+    calRoll = rawRoll;
+    calYaw = rawYaw;
+  } else {
+    calPitch = calRoll = calYaw = 0;
+  }
 
-  dispPitch = dispRoll = dispYaw = 0;
   maxPitch = maxRoll = maxYaw = 0;
   maxSpeed = 0;
   totalDistance = 0;
@@ -275,7 +275,9 @@ function resetAll() {
   currentSpeed = 0;
 
   updateUI();
-  $('status').textContent = 'Calibrated • variation from this point';
+  $('status').textContent = hasOrientation
+    ? 'Calibrated to current position • values are variation from this point'
+    : 'No orientation data yet — enable sensors first';
 }
 
 $('permBtn').addEventListener('click', enableSensors);

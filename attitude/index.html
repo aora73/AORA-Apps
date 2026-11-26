@@ -112,34 +112,34 @@
   <div class="grid">
     <div class="card">
       <div class="label">Pitch</div>
-      <div class="value" id="pitch">--</div>
+      <div class="value" id="pitch">0</div>
       <div class="unit">°</div>
-      <div class="max" id="maxPitch">max --</div>
+      <div class="max" id="maxPitch">max 0</div>
     </div>
     <div class="card">
       <div class="label">Roll</div>
-      <div class="value" id="roll">--</div>
+      <div class="value" id="roll">0</div>
       <div class="unit">°</div>
-      <div class="max" id="maxRoll">max --</div>
+      <div class="max" id="maxRoll">max 0</div>
     </div>
     <div class="card">
       <div class="label">Yaw</div>
-      <div class="value" id="yaw">--</div>
+      <div class="value" id="yaw">0</div>
       <div class="unit">°</div>
-      <div class="max" id="maxYaw">max --</div>
+      <div class="max" id="maxYaw">max 0</div>
     </div>
   </div>
 
   <div class="row">
     <div class="card">
       <div class="label">Speed</div>
-      <div class="value" id="speed">--</div>
+      <div class="value" id="speed">0</div>
       <div class="unit">km/h</div>
-      <div class="max" id="maxSpeed">max --</div>
+      <div class="max" id="maxSpeed">max 0</div>
     </div>
     <div class="card">
       <div class="label">Distance</div>
-      <div class="value" id="distance">0.0</div>
+      <div class="value" id="distance">0</div>
       <div class="unit">km</div>
       <div class="max">total</div>
     </div>
@@ -159,24 +159,24 @@ let watchId = null;
 let orientationActive = false;
 
 function format(n, d = 0) {
-  if (n == null || isNaN(n)) return '--';
-  return n.toFixed(d);
+  if (n == null || isNaN(n)) return '0';
+  return Math.round(n).toString();
 }
 
 function updateUI() {
-  $('pitch').textContent = format(currentPitch, 1);
-  $('roll').textContent = format(currentRoll, 1);
-  $('yaw').textContent = format(currentYaw, 1);
-  $('maxPitch').textContent = 'max ' + format(maxPitch, 1);
-  $('maxRoll').textContent = 'max ' + format(maxRoll, 1);
-  $('maxYaw').textContent = 'max ' + format(maxYaw, 1);
+  $('pitch').textContent = format(currentPitch);
+  $('roll').textContent = format(currentRoll);
+  $('yaw').textContent = format(currentYaw);
+  $('maxPitch').textContent = 'max ' + format(maxPitch);
+  $('maxRoll').textContent = 'max ' + format(maxRoll);
+  $('maxYaw').textContent = 'max ' + format(maxYaw);
 
-  $('speed').textContent = format(currentSpeed, 1);
-  $('maxSpeed').textContent = 'max ' + format(maxSpeed, 1);
-  $('distance').textContent = format(totalDistance / 1000, 2);
+  $('speed').textContent = format(currentSpeed);
+  $('maxSpeed').textContent = 'max ' + format(maxSpeed);
+  $('distance').textContent = format(totalDistance / 1000);
 }
 
-let currentPitch = null, currentRoll = null, currentYaw = null, currentSpeed = null;
+let currentPitch = 0, currentRoll = 0, currentYaw = 0, currentSpeed = 0;
 
 function onOrientation(e) {
   // beta = pitch (-180 to 180), gamma = roll (-90 to 90), alpha = yaw (0-360)
@@ -261,9 +261,9 @@ function resetAll() {
   maxPitch = maxRoll = maxYaw = maxSpeed = 0;
   totalDistance = 0;
   lastPos = null;
-  currentPitch = currentRoll = currentYaw = currentSpeed = null;
+  currentPitch = currentRoll = currentYaw = currentSpeed = 0;
   updateUI();
-  $('status').textContent = 'Reset • sensors still running';
+  $('status').textContent = 'Reset • all values zero';
 }
 
 $('permBtn').addEventListener('click', enableSensors);

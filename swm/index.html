@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SWM / JSA">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/3383ac_4cb9a052af604c5489bd88e8368ccc67~mv2.png/v1/fill/w_180,h_180,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2021%20logo%20clear%2020cm.png">
+<link rel="manifest" href="manifest-swm.json">
+<title>SWM / JSA | Australian Offroad Academy</title>
+<style>
+:root {
+  --navy: #1a2744;
+  --orange: #e85d04;
+  --charcoal: #1f2937;
+  --bg: #f7f6f4;
+  --card: #ffffff;
+  --border: #e5e2dc;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent-soft: #fff7ed;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding-bottom: 100px;
+}
+header {
+  background: var(--navy);
+  color: white;
+  padding: 14px 20px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.logo-row img { height: 46px; width: auto; filter: brightness(0) invert(1); }
+.brand-text { flex: 1; }
+.brand-text h1 { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; margin: 0; line-height: 1.2; }
+.brand-text p { font-size: 11px; opacity: .8; margin: 2px 0 0; letter-spacing: .3px; }
+.progress-wrap { height: 6px; background: rgba(255,255,255,.2); border-radius: 99px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, var(--orange), #fb923c); width: 0%; transition: width .3s ease; border-radius: 99px; }
+.progress-label { font-size: 12px; color: rgba(255,255,255,.75); margin-top: 6px; text-align: right; }
+main { max-width: 680px; margin: 0 auto; padding: 16px; }
+.section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; box-shadow: var(--shadow); overflow: hidden; }
+.section-header { padding: 14px 16px; background: var(--navy); color: white; font-weight: 600; font-size: 14px; letter-spacing: .2px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.section-header::after { content: "▾"; font-size: 12px; opacity: .7; transition: transform .2s; }
+.section.collapsed .section-header::after { transform: rotate(-90deg); }
+.section-body { padding: 16px; }
+.section.collapsed .section-body { display: none; }
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+label { display: block; font-size: 13px; font-weight: 600; color: var(--charcoal); margin-bottom: 5px; }
+label .optional { font-weight: 400; color: var(--muted); font-size: 12px; }
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], textarea, select {
+  width: 100%; padding: 11px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 16px; font-family: inherit; background: #fff; color: var(--text);
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--orange); }
+textarea { min-height: 80px; resize: vertical; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+.step-block { border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 12px; background: #fafaf9; }
+.step-block .step-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+.notice { background: var(--accent-soft); border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #7c2d12; margin-bottom: 16px; line-height: 1.45; }
+.actions { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 10px; z-index: 100; }
+.actions button, .btn { flex: 1; padding: 12px 16px; border-radius: 10px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--orange); color: white; }
+.btn-secondary { background: #f3f4f6; color: var(--charcoal); }
+.drafts-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 14px; display: none; }
+.drafts-panel.open { display: block; }
+.draft-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.draft-item:last-child { border-bottom: none; }
+.footer-note { text-align: center; font-size: 12px; color: var(--muted); padding: 8px 16px 20px; }
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: var(--charcoal); color: white; padding: 10px 18px; border-radius: 8px; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 200; }
+.toast.show { opacity: 1; }
+.print-header { display: none; }
+@media print {
+  body { background: white; padding: 0; }
+  header, .actions, .notice, .drafts-panel, .progress-wrap, .progress-label, .footer-note, .btn, #btnAddStep, #btnAddSign { display: none !important; }
+  .print-header { display: block; text-align: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #e85d04; }
+  .print-header img { height: 50px; }
+  .print-header h2 { margin: 6px 0 2px; font-size: 16px; color: #1a2744; }
+  .print-header p { font-size: 10px; color: #555; margin: 0; }
+  main { max-width: none; padding: 0; }
+  .section { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; margin-bottom: 10px; }
+  .section.collapsed .section-body { display: block !important; }
+  .section-header { background: #1a2744 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section-header::after { display: none; }
+  input, textarea, select { border: none; border-bottom: 1px solid #ccc; border-radius: 0; background: transparent; padding: 4px 0; }
+  textarea { min-height: 40px; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo-row">
+    <img src="https://static.wixstatic.com/media/3383ac_4cb9a052af604c5489bd88e8368ccc67~mv2.png/v1/fill/w_400,h_150,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2021%20logo%20clear%2020cm.png" alt="Australian Offroad Academy">
+    <div class="brand-text">
+      <h1>Australian Offroad Academy</h1>
+      <p>Offroad Ready · Combined SWM / JSA</p>
+    </div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="progress-label" id="progressLabel">0% complete</div>
+</header>
+
+<main>
+  <div class="print-header">
+    <img src="https://static.wixstatic.com/media/3383ac_4cb9a052af604c5489bd88e8368ccc67~mv2.png/v1/fill/w_400,h_150,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2021%20logo%20clear%2020cm.png" alt="">
+    <h2>SAFE WORK METHOD STATEMENT & JOB SAFETY ANALYSIS</h2>
+    <p>Australian Offroad Academy · PO Box 3344, Hervey Bay QLD 4655 · 0417 761 610 / 1300 725 440</p>
+  </div>
+
+  <div class="notice">
+    <strong>All fields are optional.</strong> Complete what you can. If high-risk construction work applies, this document must be available on site before work starts. Review if conditions, people, or method change.
+  </div>
+
+  <div class="drafts-panel" id="draftsPanel">
+    <strong style="font-size:14px;">Saved drafts</strong>
+    <div id="draftsList"></div>
+  </div>
+
+  <form id="swmForm">
+
+    <!-- 1. Details -->
+    <div class="section">
+      <div class="section-header">1. Activity / Job Details</div>
+      <div class="section-body">
+        <div class="row">
+          <div class="field"><label>Document Number <span class="optional">(optional)</span></label><input type="text" name="docNumber" placeholder="e.g. SWM-2026-001"></div>
+          <div class="field"><label>Date <span class="optional">(optional)</span></label><input type="date" name="date"></div>
+        </div>
+        <div class="field"><label>Activity / Job <span class="optional">(optional)</span></label><input type="text" name="activity" placeholder="e.g. Sand recovery training, vehicle recovery, high-angle work"></div>
+        <div class="field"><label>Location / Site <span class="optional">(optional)</span></label><input type="text" name="location" placeholder="Track, training site, address, or description"></div>
+        <div class="row">
+          <div class="field"><label>Prepared by <span class="optional">(optional)</span></label><input type="text" name="preparedBy"></div>
+          <div class="field"><label>Position <span class="optional">(optional)</span></label><input type="text" name="position"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Reviewed by <span class="optional">(optional)</span></label><input type="text" name="reviewedBy"></div>
+          <div class="field"><label>Date reviewed <span class="optional">(optional)</span></label><input type="date" name="dateReviewed"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>PCBU / Company <span class="optional">(optional)</span></label><input type="text" name="company" value="Australian Offroad Academy"></div>
+          <div class="field"><label>Contact <span class="optional">(optional)</span></label><input type="tel" name="contact"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. High-risk check -->
+    <div class="section">
+      <div class="section-header">2. High-Risk Construction Work Check</div>
+      <div class="section-body">
+        <div class="field">
+          <label>Does any high-risk construction work apply? <span class="optional">(optional — tick all that apply)</span></label>
+          <div class="checkbox-group">
+            <label class="check-item"><input type="checkbox" name="hrw" value="Risk of falling more than 2 metres"> Risk of falling more than 2 metres</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Demolition of a structure"> Demolition of a structure</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Asbestos"> Likely to involve asbestos</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Trench or excavation >1.5 m"> Trench or excavation deeper than 1.5 m</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Near powered mobile plant"> Work on or near powered mobile plant</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Near energised electrical"> Work on or near energised electrical installations or services</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Confined space"> Work in a confined space</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Tilt-up or precast concrete"> Tilt-up or precast concrete</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Diving work"> Diving work</label>
+            <label class="check-item"><input type="checkbox" name="hrw" value="Other"> Other high-risk construction work</label>
+          </div>
+        </div>
+        <div class="field"><label>Other detail <span class="optional">(optional)</span></label><input type="text" name="hrwOther"></div>
+        <div class="field">
+          <label>Is a formal SWM required for this work? <span class="optional">(optional)</span></label>
+          <select name="swmRequired">
+            <option value="">Select…</option>
+            <option>Yes</option>
+            <option>No</option>
+            <option>Unsure</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Steps -->
+    <div class="section">
+      <div class="section-header">3. Job Steps, Hazards and Controls</div>
+      <div class="section-body">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Break the activity into logical steps. Prefer higher-order controls (elimination, substitution, engineering) where practical.</p>
+        <div id="stepsContainer"></div>
+        <button type="button" class="btn-secondary" id="btnAddStep" style="width:100%;">+ Add another step</button>
+      </div>
+    </div>
+
+    <!-- 4. PPE -->
+    <div class="section">
+      <div class="section-header">4. PPE Required</div>
+      <div class="section-body">
+        <div class="field">
+          <label>Personal protective equipment <span class="optional">(optional)</span></label>
+          <textarea name="ppe" placeholder="e.g. hi-vis, gloves, eye protection, appropriate footwear, helmet, hearing protection…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Emergency -->
+    <div class="section">
+      <div class="section-header">5. Emergency Arrangements</div>
+      <div class="section-body">
+        <div class="field"><label>Nearest medical facility <span class="optional">(optional)</span></label><input type="text" name="medical"></div>
+        <div class="field"><label>Site emergency contact <span class="optional">(optional)</span></label><input type="text" name="emergencyContact"></div>
+        <div class="field"><label>First aid kit location <span class="optional">(optional)</span></label><input type="text" name="firstAid"></div>
+        <div class="field"><label>Assembly / evacuation point <span class="optional">(optional)</span></label><input type="text" name="assembly"></div>
+      </div>
+    </div>
+
+    <!-- 6. Notes -->
+    <div class="section">
+      <div class="section-header">6. Additional Notes / Site Conditions</div>
+      <div class="section-body">
+        <div class="field">
+          <label>Notes <span class="optional">(optional)</span></label>
+          <textarea name="notes" placeholder="Terrain, weather, visibility, equipment checks, communication method, supervision arrangements…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Sign-off -->
+    <div class="section">
+      <div class="section-header">7. Team Consultation & Sign-off</div>
+      <div class="section-body">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">All workers involved should confirm they understand the hazards and controls.</p>
+        <div id="signContainer"></div>
+        <button type="button" class="btn-secondary" id="btnAddSign" style="width:100%;">+ Add another person</button>
+      </div>
+    </div>
+
+  </form>
+
+  <p class="footer-note">
+    Australian Offroad Academy · Internal WHS record<br>
+    Review if the work method, people, equipment, or site conditions change.
+  </p>
+</main>
+
+<div class="actions">
+  <button type="button" class="btn-secondary" id="btnSave">Save Draft</button>
+  <button type="button" class="btn-secondary" id="btnDrafts">Drafts</button>
+  <button type="button" class="btn-secondary" id="btnPDF">Save as PDF</button>
+  <button type="button" class="btn-primary" id="btnEmail">Email</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const form = document.getElementById('swmForm');
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+const toast = document.getElementById('toast');
+const STORAGE_KEY = 'aora_swm_jsa_drafts';
+
+let stepCount = 0;
+let signCount = 0;
+const stepsContainer = document.getElementById('stepsContainer');
+const signContainer = document.getElementById('signContainer');
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function createStepBlock(index, values = {}) {
+  const div = document.createElement('div');
+  div.className = 'step-block';
+  div.dataset.index = index;
+  div.innerHTML = `
+    <div class="step-header">
+      <span>Step ${index + 1}</span>
+      ${index > 0 ? '<button type="button" class="btn-secondary" style="padding:4px 10px;font-size:12px;" onclick="removeStep(this)">Remove</button>' : ''}
+    </div>
+    <div class="field"><label>Job Step / Activity <span class="optional">(optional)</span></label><input type="text" name="stepActivity_${index}" value="${values.activity || ''}"></div>
+    <div class="field"><label>Potential Hazards <span class="optional">(optional)</span></label><textarea name="stepHazards_${index}">${values.hazards || ''}</textarea></div>
+    <div class="field"><label>Controls / Safe Work Practices <span class="optional">(optional)</span></label><textarea name="stepControls_${index}">${values.controls || ''}</textarea></div>
+  `;
+  return div;
+}
+
+function addStep(values) {
+  stepsContainer.appendChild(createStepBlock(stepCount, values));
+  stepCount++;
+  updateProgress();
+}
+
+function removeStep(btn) {
+  btn.closest('.step-block').remove();
+  const blocks = stepsContainer.querySelectorAll('.step-block');
+  stepCount = 0;
+  blocks.forEach((block, i) => {
+    block.dataset.index = i;
+    block.querySelector('.step-header span').textContent = 'Step ' + (i + 1);
+    block.querySelectorAll('[name]').forEach(el => {
+      el.name = el.name.replace(/_\d+$/, '_' + i);
+    });
+    stepCount = i + 1;
+  });
+  updateProgress();
+}
+
+function createSignBlock(index, values = {}) {
+  const div = document.createElement('div');
+  div.className = 'step-block';
+  div.dataset.index = index;
+  div.innerHTML = `
+    <div class="step-header">
+      <span>Person ${index + 1}</span>
+      ${index > 0 ? '<button type="button" class="btn-secondary" style="padding:4px 10px;font-size:12px;" onclick="removeSign(this)">Remove</button>' : ''}
+    </div>
+    <div class="row">
+      <div class="field"><label>Name <span class="optional">(optional)</span></label><input type="text" name="signName_${index}" value="${values.name || ''}"></div>
+      <div class="field"><label>Role <span class="optional">(optional)</span></label><input type="text" name="signRole_${index}" value="${values.role || ''}"></div>
+    </div>
+    <div class="field"><label>Date <span class="optional">(optional)</span></label><input type="date" name="signDate_${index}" value="${values.date || ''}"></div>
+  `;
+  return div;
+}
+
+function addSign(values) {
+  signContainer.appendChild(createSignBlock(signCount, values));
+  signCount++;
+  updateProgress();
+}
+
+function removeSign(btn) {
+  btn.closest('.step-block').remove();
+  const blocks = signContainer.querySelectorAll('.step-block');
+  signCount = 0;
+  blocks.forEach((block, i) => {
+    block.dataset.index = i;
+    block.querySelector('.step-header span').textContent = 'Person ' + (i + 1);
+    block.querySelectorAll('[name]').forEach(el => {
+      el.name = el.name.replace(/_\d+$/, '_' + i);
+    });
+    signCount = i + 1;
+  });
+  updateProgress();
+}
+
+document.getElementById('btnAddStep').addEventListener('click', () => addStep());
+document.getElementById('btnAddSign').addEventListener('click', () => addSign());
+addStep();
+addSign();
+
+function getAllFields() {
+  return Array.from(form.querySelectorAll('input, textarea, select'));
+}
+
+function isFieldFilled(el) {
+  if (el.type === 'checkbox') {
+    return form.querySelectorAll(`input[name="${el.name}"]:checked`).length > 0;
+  }
+  return el.value && el.value.trim() !== '';
+}
+
+function updateProgress() {
+  const fields = getAllFields();
+  const unique = new Map();
+  fields.forEach(el => {
+    const key = el.name || Math.random();
+    if (!unique.has(key)) unique.set(key, []);
+    unique.get(key).push(el);
+  });
+  let filled = 0;
+  unique.forEach(group => {
+    if (group.some(isFieldFilled)) filled++;
+  });
+  const total = unique.size;
+  const pct = total === 0 ? 0 : Math.round((filled / total) * 100);
+  progressBar.style.width = pct + '%';
+  progressLabel.textContent = pct + '% complete';
+}
+
+function collectData() {
+  const data = {};
+  const fields = getAllFields();
+  const seen = new Set();
+  fields.forEach(el => {
+    if (seen.has(el.name)) return;
+    if (el.type === 'checkbox') {
+      const checked = Array.from(form.querySelectorAll(`input[name="${el.name}"]:checked`)).map(c => c.value);
+      data[el.name] = checked.length ? checked.join(', ') : '';
+      seen.add(el.name);
+    } else {
+      data[el.name] = el.value || '';
+    }
+  });
+  data.steps = [];
+  stepsContainer.querySelectorAll('.step-block').forEach((block, i) => {
+    data.steps.push({
+      activity: block.querySelector(`[name="stepActivity_${i}"]`)?.value || '',
+      hazards: block.querySelector(`[name="stepHazards_${i}"]`)?.value || '',
+      controls: block.querySelector(`[name="stepControls_${i}"]`)?.value || ''
+    });
+  });
+  data.signs = [];
+  signContainer.querySelectorAll('.step-block').forEach((block, i) => {
+    data.signs.push({
+      name: block.querySelector(`[name="signName_${i}"]`)?.value || '',
+      role: block.querySelector(`[name="signRole_${i}"]`)?.value || '',
+      date: block.querySelector(`[name="signDate_${i}"]`)?.value || ''
+    });
+  });
+  return data;
+}
+
+function saveDraft() {
+  const data = collectData();
+  const drafts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  drafts.unshift({ id: Date.now(), savedAt: new Date().toLocaleString('en-AU'), data });
+  if (drafts.length > 20) drafts.pop();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(drafts));
+  showToast('Draft saved on this device');
+  renderDrafts();
+}
+
+function loadDraft(id) {
+  const drafts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const draft = drafts.find(d => d.id === id);
+  if (!draft) return;
+  Object.entries(draft.data).forEach(([name, value]) => {
+    if (name === 'steps' || name === 'signs') return;
+    const els = form.querySelectorAll(`[name="${name}"]`);
+    if (!els.length) return;
+    if (els[0].type === 'checkbox') {
+      const vals = value ? value.split(', ') : [];
+      els.forEach(el => { el.checked = vals.includes(el.value); });
+    } else {
+      els[0].value = value || '';
+    }
+  });
+  stepsContainer.innerHTML = '';
+  stepCount = 0;
+  (draft.data.steps || [{}]).forEach(s => addStep(s));
+  signContainer.innerHTML = '';
+  signCount = 0;
+  (draft.data.signs || [{}]).forEach(s => addSign(s));
+  updateProgress();
+  document.getElementById('draftsPanel').classList.remove('open');
+  showToast('Draft loaded');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteDraft(id) {
+  let drafts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  drafts = drafts.filter(d => d.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(drafts));
+  renderDrafts();
+  showToast('Draft deleted');
+}
+
+function renderDrafts() {
+  const drafts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const list = document.getElementById('draftsList');
+  if (!drafts.length) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted);margin-top:8px;">No saved drafts yet.</p>';
+    return;
+  }
+  list.innerHTML = drafts.map(d => `
+    <div class="draft-item">
+      <span>${d.savedAt}</span>
+      <span>
+        <button type="button" class="btn-secondary" style="margin-right:6px;" onclick="loadDraft(${d.id})">Load</button>
+        <button type="button" class="btn-secondary" onclick="deleteDraft(${d.id})">Delete</button>
+      </span>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('.section-header').forEach(h => {
+  h.addEventListener('click', () => h.parentElement.classList.toggle('collapsed'));
+});
+
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+
+document.getElementById('btnSave').addEventListener('click', saveDraft);
+async function generateCleanPdf() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+  const clean = document.createElement('div');
+  clean.style.cssText = 'position:fixed;left:-9999px;top:0;width:780px;background:#fff;padding:16px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:#1f2937;';
+  clean.innerHTML = `
+    <div style="text-align:center;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e85d04;">
+      <img src="https://static.wixstatic.com/media/3383ac_4cb9a052af604c5489bd88e8368ccc67~mv2.png/v1/fill/w_400,h_150,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2021%20logo%20clear%2020cm.png" style="height:48px;">
+      <h2 style="margin:4px 0 2px;font-size:15px;color:#1a2744;">SAFE WORK METHOD STATEMENT & JOB SAFETY ANALYSIS</h2>
+      <p style="font-size:10px;color:#555;margin:0;">Australian Offroad Academy · PO Box 3344, Hervey Bay QLD 4655 · 0417 761 610 / 1300 725 440</p>
+    </div>
+  `;
+  const formClone = document.getElementById('swmForm').cloneNode(true);
+  formClone.querySelectorAll('button').forEach(el => el.remove());
+  formClone.querySelectorAll('input, textarea, select').forEach(el => {
+    if (el.type === 'checkbox' || el.type === 'radio') return;
+    const val = el.value || '';
+    const span = document.createElement('div');
+    span.style.cssText = 'border-bottom:1px solid #ccc;min-height:22px;padding:4px 0;margin-bottom:8px;white-space:pre-wrap;';
+    span.textContent = val || '—';
+    el.parentNode.replaceChild(span, el);
+  });
+  clean.appendChild(formClone);
+  document.body.appendChild(clean);
+  await new Promise(r => setTimeout(r, 400));
+  const opt = {
+    margin: [8, 8, 8, 8],
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 780 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['css', 'legacy'] }
+  };
+  try {
+    return await html2pdf().set(opt).from(clean).outputPdf('blob');
+  } finally {
+    document.body.removeChild(clean);
+  }
+}
+
+function openPrintWindow() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+  const data = collectData();
+  let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>SWM / JSA</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;color:#1f2937;line-height:1.4}
+h1{color:#1a2744;font-size:18px;text-align:center;margin:0 0 4px}
+.sub{text-align:center;font-size:11px;color:#555;margin-bottom:16px;border-bottom:2px solid #e85d04;padding-bottom:8px}
+h2{color:#1a2744;font-size:14px;margin:18px 0 8px;border-bottom:1px solid #ddd;padding-bottom:4px}
+.field{margin-bottom:10px}
+.label{font-weight:600;font-size:12px;color:#374151}
+.value{font-size:14px;white-space:pre-wrap;border-bottom:1px solid #eee;padding:4px 0;min-height:20px}
+@media print{body{margin:10mm}}
+</style></head><body>
+<h1>SAFE WORK METHOD STATEMENT & JOB SAFETY ANALYSIS</h1>
+<div class="sub">Australian Offroad Academy · PO Box 3344, Hervey Bay QLD 4655 · 0417 761 610 / 1300 725 440</div>`;
+  const labels = {
+    docNumber:'Document No.', date:'Date', activity:'Activity / Job', location:'Location',
+    preparedBy:'Prepared by', position:'Position', reviewedBy:'Reviewed by', dateReviewed:'Date reviewed',
+    company:'Company', contact:'Contact', swmRequired:'SWM required', ppe:'PPE',
+    medical:'Nearest medical', emergencyContact:'Emergency contact', firstAid:'First aid',
+    assembly:'Assembly point', notes:'Notes', hrw:'High-risk work', hrwOther:'Other high-risk'
+  };
+  Object.entries(labels).forEach(([k, lab]) => {
+    if (data[k]) html += `<div class="field"><div class="label">${lab}</div><div class="value">${data[k]}</div></div>`;
+  });
+  if (data.steps && data.steps.length) {
+    html += '<h2>Job Steps</h2>';
+    data.steps.forEach((s, i) => {
+      if (s.activity || s.hazards || s.controls) {
+        html += `<div class="field"><div class="label">Step ${i+1}</div><div class="value"><strong>${s.activity||''}</strong><br>Hazards: ${s.hazards||'—'}<br>Controls: ${s.controls||'—'}</div></div>`;
+      }
+    });
+  }
+  if (data.signs && data.signs.length) {
+    html += '<h2>Sign-off</h2>';
+    data.signs.forEach((s, i) => {
+      if (s.name) html += `<div class="field"><div class="label">Person ${i+1}</div><div class="value">${s.name} · ${s.role||''} · ${s.date||''}</div></div>`;
+    });
+  }
+  html += '</body></html>';
+  const w = window.open('', '_blank');
+  if (!w) { showToast('Please allow pop-ups and try again'); return; }
+  w.document.write(html);
+  w.document.close();
+  setTimeout(() => { w.focus(); w.print(); }, 600);
+}
+
+function isIOSDevice() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+         (navigator.userAgent.includes('Macintosh') && 'ontouchend' in document);
+}
+
+document.getElementById('btnPDF').addEventListener('click', async () => {
+  if (isIOSDevice() || !window.html2pdf) {
+    openPrintWindow();
+    return;
+  }
+  showToast('Preparing PDF…');
+  try {
+    const pdfBlob = await generateCleanPdf();
+    const suggestedName = 'AORA_SWM_JSA_' + (new Date().toISOString().slice(0,10)) + '.pdf';
+    if (window.showSaveFilePicker) {
+      const handle = await window.showSaveFilePicker({
+        suggestedName,
+        types: [{ description: 'PDF Document', accept: { 'application/pdf': ['.pdf'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(pdfBlob);
+      await writable.close();
+      showToast('PDF saved');
+    } else {
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = suggestedName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('PDF downloaded');
+    }
+  } catch (err) {
+    if (err.name !== 'AbortError') openPrintWindow();
+  }
+});
+document.getElementById('btnEmail').addEventListener('click', async () => {
+  if (isIOSDevice()) {
+    openPrintWindow();
+    showToast('Print dialog opened — choose Share or Save to Files');
+    return;
+  }
+  showToast('Preparing PDF for email…');
+  try {
+    const pdfBlob = await generateCleanPdf();
+    const fileName = 'AORA_SWM_JSA_' + (new Date().toISOString().slice(0,10)) + '.pdf';
+    const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+    const subject = 'SWM / JSA — Australian Offroad Academy';
+    const text = 'Please find the SWM/JSA attached as a PDF.';
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ title: subject, text, files: [file] });
+      showToast('Shared');
+      return;
+    }
+    if (navigator.share) {
+      await navigator.share({ title: subject, text: text + '\n\n(PDF could not be attached — please attach manually if needed.)' });
+      return;
+    }
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setTimeout(() => {
+      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text + '\n\nPlease attach the downloaded PDF.')}`;
+    }, 500);
+    showToast('PDF downloaded — opening mail…');
+  } catch (err) {
+    if (err.name !== 'AbortError') openPrintWindow();
+  }
+});
+
+document.getElementById('btnDrafts').addEventListener('click', () => {
+  const panel = document.getElementById('draftsPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) renderDrafts();
+});
+
+updateProgress();
+</script>
+</body>
+</html>

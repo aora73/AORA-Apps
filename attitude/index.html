@@ -145,7 +145,7 @@
     </div>
   </div>
 
-  <button id="resetBtn">Reset All</button>
+  <button id="resetBtn">Reset / Calibrate</button>
   <div class="status" id="status">Tap Enable Sensors to start</div>
 
 <script>
@@ -153,20 +153,32 @@ const $ = id => document.getElementById(id);
 
 let maxPitch = 0, maxRoll = 0, maxYaw = 0;
 let maxSpeed = 0;
-let totalDistance = 0; // metres
+let totalDistance = 0;
 let lastPos = null;
 let watchId = null;
 let orientationActive = false;
 
-function format(n, d = 0) {
+let calPitch = 0, calRoll = 0, calYaw = 0;
+let rawPitch = 0, rawRoll = 0, rawYaw = 0;
+let dispPitch = 0, dispRoll = 0, dispYaw = 0;
+let currentSpeed = 0;
+
+function format(n) {
   if (n == null || isNaN(n)) return '0';
   return Math.round(n).toString();
 }
 
+function angleDiff(from, to) {
+  let d = to - from;
+  while (d > 180) d -= 360;
+  while (d < -180) d += 360;
+  return d;
+}
+
 function updateUI() {
-  $('pitch').textContent = format(currentPitch);
-  $('roll').textContent = format(currentRoll);
-  $('yaw').textContent = format(currentYaw);
+  $('pitch').textContent = format(dispPitch);
+  $('roll').textContent = format(dispRoll);
+  $('yaw').textContent = format(dispYaw);
   $('maxPitch').textContent = 'max ' + format(maxPitch);
   $('maxRoll').textContent = 'max ' + format(maxRoll);
   $('maxYaw').textContent = 'max ' + format(maxYaw);
@@ -176,27 +188,24 @@ function updateUI() {
   $('distance').textContent = format(totalDistance / 1000);
 }
 
-let currentPitch = 0, currentRoll = 0, currentYaw = 0, currentSpeed = 0;
-
 function onOrientation(e) {
-  // beta = pitch (-180 to 180), gamma = roll (-90 to 90), alpha = yaw (0-360)
-  if (e.beta != null) {
-    currentPitch = e.beta;
-    maxPitch = Math.max(maxPitch, Math.abs(currentPitch));
-  }
-  if (e.gamma != null) {
-    currentRoll = e.gamma;
-    maxRoll = Math.max(maxRoll, Math.abs(currentRoll));
-  }
-  if (e.alpha != null) {
-    currentYaw = e.alpha;
-    maxYaw = Math.max(maxYaw, currentYaw);
-  }
+  if (e.beta != null) rawPitch = e.beta;
+  if (e.gamma != null) rawRoll = e.gamma;
+  if (e.alpha != null) rawYaw = e.alpha;
+
+  dispPitch = rawPitch - calPitch;
+  dispRoll = rawRoll - calRoll;
+  dispYaw = angleDiff(calYaw, rawYaw);
+
+  maxPitch = Math.max(maxPitch, Math.abs(dispPitch));
+  maxRoll = Math.max(maxRoll, Math.abs(dispRoll));
+  maxYaw = Math.max(maxYaw, Math.abs(dispYaw));
+
   updateUI();
 }
 
 function haversine(lat1, lon1, lat2, lon2) {
-  const R = 6371000; // metres
+  const R = 6371000;
   const toRad = d => d * Math.PI / 180;
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
@@ -206,14 +215,12 @@ function haversine(lat1, lon1, lat2, lon2) {
 
 function onPosition(pos) {
   const c = pos.coords;
-  currentSpeed = (c.speed != null && c.speed >= 0) ? c.speed * 3.6 : null; // m/s to km/h
-  if (currentSpeed != null) maxSpeed = Math.max(maxSpeed, currentSpeed);
+  currentSpeed = (c.speed != null && c.speed >= 0) ? c.speed * 3.6 : 0;
+  if (currentSpeed) maxSpeed = Math.max(maxSpeed, currentSpeed);
 
   if (lastPos && c.accuracy < 50) {
     const d = haversine(lastPos.latitude, lastPos.longitude, c.latitude, c.longitude);
-    if (d > 1 && d < 200) { // ignore tiny noise and huge jumps
-      totalDistance += d;
-    }
+    if (d > 1 && d < 200) totalDistance += d;
   }
   lastPos = { latitude: c.latitude, longitude: c.longitude };
   updateUI();
@@ -225,7 +232,6 @@ function onPosError(err) {
 }
 
 async function enableSensors() {
-  // Orientation permission (iOS 13+)
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
     try {
       const perm = await DeviceOrientationEvent.requestPermission();
@@ -242,7 +248,6 @@ async function enableSensors() {
   window.addEventListener('deviceorientation', onOrientation);
   orientationActive = true;
 
-  // Geolocation
   if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(onPosition, onPosError, {
       enableHighAccuracy: true,
@@ -254,16 +259,23 @@ async function enableSensors() {
   }
 
   $('permBtn').classList.add('hidden');
-  $('status').textContent = 'Sensors starting…';
+  $('status').textContent = 'Sensors starting… Hold still and tap Reset to calibrate';
 }
 
 function resetAll() {
-  maxPitch = maxRoll = maxYaw = maxSpeed = 0;
+  calPitch = rawPitch;
+  calRoll = rawRoll;
+  calYaw = rawYaw;
+
+  dispPitch = dispRoll = dispYaw = 0;
+  maxPitch = maxRoll = maxYaw = 0;
+  maxSpeed = 0;
   totalDistance = 0;
   lastPos = null;
-  currentPitch = currentRoll = currentYaw = currentSpeed = 0;
+  currentSpeed = 0;
+
   updateUI();
-  $('status').textContent = 'Reset • all values zero';
+  $('status').textContent = 'Calibrated • variation from this point';
 }
 
 $('permBtn').addEventListener('click', enableSensors);

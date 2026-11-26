@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Offroad Attitude & Speed</title>
+<style>
+  :root {
+    --bg: #0a0e12;
+    --card: #12181f;
+    --text: #e8f0f5;
+    --muted: #8aa0b0;
+    --accent: #f2c14e;
+    --danger: #e36a2c;
+    --ok: #8eae62;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 12px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+  .value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .unit {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .max {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-top: 6px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .wide {
+    grid-column: span 2;
+  }
+  button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  button:active {
+    transform: scale(0.98);
+  }
+  .status {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 8px;
+    min-height: 1.2em;
+  }
+  .perm-btn {
+    background: var(--ok);
+    margin-bottom: 10px;
+  }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+  <h1>OFFROAD ATTITUDE</h1>
+
+  <button id="permBtn" class="perm-btn">Enable Sensors</button>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Pitch</div>
+      <div class="value" id="pitch">--</div>
+      <div class="unit">°</div>
+      <div class="max" id="maxPitch">max --</div>
+    </div>
+    <div class="card">
+      <div class="label">Roll</div>
+      <div class="value" id="roll">--</div>
+      <div class="unit">°</div>
+      <div class="max" id="maxRoll">max --</div>
+    </div>
+    <div class="card">
+      <div class="label">Yaw</div>
+      <div class="value" id="yaw">--</div>
+      <div class="unit">°</div>
+      <div class="max" id="maxYaw">max --</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="label">Speed</div>
+      <div class="value" id="speed">--</div>
+      <div class="unit">km/h</div>
+      <div class="max" id="maxSpeed">max --</div>
+    </div>
+    <div class="card">
+      <div class="label">Distance</div>
+      <div class="value" id="distance">0.0</div>
+      <div class="unit">km</div>
+      <div class="max">total</div>
+    </div>
+  </div>
+
+  <button id="resetBtn">Reset All</button>
+  <div class="status" id="status">Tap Enable Sensors to start</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let maxPitch = 0, maxRoll = 0, maxYaw = 0;
+let maxSpeed = 0;
+let totalDistance = 0; // metres
+let lastPos = null;
+let watchId = null;
+let orientationActive = false;
+
+function format(n, d = 0) {
+  if (n == null || isNaN(n)) return '--';
+  return n.toFixed(d);
+}
+
+function updateUI() {
+  $('pitch').textContent = format(currentPitch, 1);
+  $('roll').textContent = format(currentRoll, 1);
+  $('yaw').textContent = format(currentYaw, 1);
+  $('maxPitch').textContent = 'max ' + format(maxPitch, 1);
+  $('maxRoll').textContent = 'max ' + format(maxRoll, 1);
+  $('maxYaw').textContent = 'max ' + format(maxYaw, 1);
+
+  $('speed').textContent = format(currentSpeed, 1);
+  $('maxSpeed').textContent = 'max ' + format(maxSpeed, 1);
+  $('distance').textContent = format(totalDistance / 1000, 2);
+}
+
+let currentPitch = null, currentRoll = null, currentYaw = null, currentSpeed = null;
+
+function onOrientation(e) {
+  // beta = pitch (-180 to 180), gamma = roll (-90 to 90), alpha = yaw (0-360)
+  if (e.beta != null) {
+    currentPitch = e.beta;
+    maxPitch = Math.max(maxPitch, Math.abs(currentPitch));
+  }
+  if (e.gamma != null) {
+    currentRoll = e.gamma;
+    maxRoll = Math.max(maxRoll, Math.abs(currentRoll));
+  }
+  if (e.alpha != null) {
+    currentYaw = e.alpha;
+    maxYaw = Math.max(maxYaw, currentYaw);
+  }
+  updateUI();
+}
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371000; // metres
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function onPosition(pos) {
+  const c = pos.coords;
+  currentSpeed = (c.speed != null && c.speed >= 0) ? c.speed * 3.6 : null; // m/s to km/h
+  if (currentSpeed != null) maxSpeed = Math.max(maxSpeed, currentSpeed);
+
+  if (lastPos && c.accuracy < 50) {
+    const d = haversine(lastPos.latitude, lastPos.longitude, c.latitude, c.longitude);
+    if (d > 1 && d < 200) { // ignore tiny noise and huge jumps
+      totalDistance += d;
+    }
+  }
+  lastPos = { latitude: c.latitude, longitude: c.longitude };
+  updateUI();
+  $('status').textContent = 'GPS active • accuracy ' + Math.round(c.accuracy) + 'm';
+}
+
+function onPosError(err) {
+  $('status').textContent = 'GPS: ' + err.message;
+}
+
+async function enableSensors() {
+  // Orientation permission (iOS 13+)
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    try {
+      const perm = await DeviceOrientationEvent.requestPermission();
+      if (perm !== 'granted') {
+        $('status').textContent = 'Orientation permission denied';
+        return;
+      }
+    } catch (e) {
+      $('status').textContent = 'Orientation permission error';
+      return;
+    }
+  }
+
+  window.addEventListener('deviceorientation', onOrientation);
+  orientationActive = true;
+
+  // Geolocation
+  if (navigator.geolocation) {
+    watchId = navigator.geolocation.watchPosition(onPosition, onPosError, {
+      enableHighAccuracy: true,
+      maximumAge: 1000,
+      timeout: 10000
+    });
+  } else {
+    $('status').textContent = 'Geolocation not supported';
+  }
+
+  $('permBtn').classList.add('hidden');
+  $('status').textContent = 'Sensors starting…';
+}
+
+function resetAll() {
+  maxPitch = maxRoll = maxYaw = maxSpeed = 0;
+  totalDistance = 0;
+  lastPos = null;
+  currentPitch = currentRoll = currentYaw = currentSpeed = null;
+  updateUI();
+  $('status').textContent = 'Reset • sensors still running';
+}
+
+$('permBtn').addEventListener('click', enableSensors);
+$('resetBtn').addEventListener('click', resetAll);
+
+updateUI();
+</script>
+</body>
+</html>

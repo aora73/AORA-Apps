@@ -154,6 +154,7 @@
 </main>
 <script>
 const ROWS = [
+  ["Drive Straya partners", "Clickable fact sheet of the membership: where they are, what they do, and how to reach them.", "https://aora73.github.io/AORA-Apps/drive-straya/"],
   ["9 caravan experiences", "Queensland Country van guide, with a trip sketch that stays on the phone.", "https://aora73.github.io/AORA-Apps/queensland-country/"],
   ["Incident report", "Blank workplace incident report. It saves on the phone and can make a PDF.", "https://aora73.github.io/AORA-Apps/incident/"],
   ["SWM / JSA", "Safe work method and job safety analysis for a training day.", "https://aora73.github.io/AORA-Apps/swm/"],
@@ -172,11 +173,11 @@ const q = document.getElementById("q");
 const body = document.getElementById("rows");
 function esc(s) {
   return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/&/g, "&" + "amp;")
+    .replace(/</g, "&" + "lt;")
+    .replace(/>/g, "&" + "gt;")
+    .replace(/"/g, "&" + "quot;")
+    .replace(/'/g, "&" + "#39;");
 }
 function draw() {
   const needle = q.value.trim().toLowerCase();

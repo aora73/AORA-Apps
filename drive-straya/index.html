@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drive Straya Partners</title>
+<meta name="description" content="Clickable fact sheet of Drive Straya partners — locations, services, contacts, websites and social pages. Prepared by Dingo Dave and the Australian Offroad Academy.">
+<meta name="theme-color" content="#1e2a20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e2a20'/%3E%3Cpath d='M6 22h20M8 22V12l8-5 8 5v10' fill='none' stroke='%23a6842c' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23c4622d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --parchment: #f3eadc;
+    --card: #fffaf3;
+    --ink: #1c1610;
+    --dust: #6d6156;
+    --line: #e4d8c6;
+    --ochre: #c4622d;
+    --bush: #1e2a20;
+    --gold: #a6842c;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--parchment); color: var(--ink); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Outfit, system-ui, sans-serif;
+    background:
+      radial-gradient(1200px 480px at 100% -10%, rgb(196 98 45 / 0.14), transparent 55%),
+      var(--parchment);
+  }
+  button, select { font: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; }
+  main { width: min(72rem, calc(100% - 2rem)); margin: 0 auto; padding: 1rem 0 5rem; }
+  .hero { overflow: hidden; border-radius: 1.5rem; background: var(--bush); color: var(--parchment); }
+  .hero-pad { display: flex; flex-direction: column; gap: 1.5rem; padding: 1.25rem; }
+  .kicker { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .eyebrow { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 0.875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .date { margin: 0; font-size: 0.875rem; color: rgb(243 234 220 / 0.7); }
+  h1 { margin: 0; max-width: 18ch; font-family: Fraunces, Georgia, serif; font-weight: 560; font-size: 2.5rem; line-height: 0.95; }
+  .lede { margin: 1rem 0 0; max-width: 40rem; font-size: 1rem; line-height: 1.55; color: rgb(243 234 220 / 0.85); }
+  .strip { display: grid; gap: 1px; background: rgb(243 234 220 / 0.15); }
+  .strip a { display: block; background: var(--bush); padding: 1rem 1.25rem; text-decoration: none; }
+  .strip a:hover { background: rgb(30 42 32 / 0.82); }
+  .strip small { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .strip span { display: block; margin-top: 0.25rem; font-size: 0.875rem; line-height: 1.35; }
+  .panel { margin-top: 1.5rem; border: 1px solid var(--line); border-radius: 1.5rem; background: var(--card); padding: 1rem; }
+  .search { position: relative; display: block; }
+  .search svg { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--dust); }
+  .search input, .region select {
+    width: 100%;
+    height: 3rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--parchment);
+    color: var(--ink);
+    padding: 0 1rem 0 3rem;
+    font-size: 1rem;
+    outline: none;
+  }
+  .search input:focus, .region select:focus { border-color: var(--ochre); }
+  .region { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.75rem; color: var(--dust); font-size: 0.875rem; }
+  .region select { padding-left: 1rem; }
+  .filter-label { margin: 0.85rem 0 0.45rem; color: var(--dust); font-size: 0.875rem; }
+  .chips { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; }
+  .chip {
+    height: 2.75rem;
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 999px;
+    background: var(--parchment);
+    color: var(--ink);
+    padding: 0 1rem;
+    font-size: 0.875rem;
+  }
+  .chip.on { background: var(--ink); color: var(--parchment); }
+  .count { margin: 0.75rem 0 0; color: var(--dust); font-size: 0.875rem; }
+  .group { margin-top: 2rem; }
+  h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 560; font-size: 1.5rem; }
+  .grid { display: grid; gap: 0.75rem; margin-top: 0.75rem; }
+  .card {
+    display: flex;
+    min-height: 7rem;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--card);
+    box-shadow: 0 18px 50px rgb(28 22 16 / 0.12);
+    padding: 1rem;
+    text-align: left;
+    color: inherit;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card-top { display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+  .name { font-family: Fraunces, Georgia, serif; font-size: 1.25rem; line-height: 1.15; }
+  .arrow { margin-top: 0.2rem; flex: 0 0 auto; color: var(--ochre); }
+  .meta { margin-top: 0.5rem; color: var(--dust); font-size: 0.875rem; }
+  .blurb {
+    margin-top: 0.75rem;
+    color: rgb(28 22 16 / 0.8);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .empty { margin-top: 2rem; text-align: center; color: var(--dust); }
+  footer { margin-top: 3rem; max-width: 46rem; color: var(--dust); font-size: 0.875rem; line-height: 1.55; }
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgb(28 22 16 / 0.45);
+  }
+  .scrim[hidden] { display: none; }
+  .sheet {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-height: 92vh;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 1.5rem 1.5rem 0 0;
+    background: var(--parchment);
+    padding: 1.25rem;
+  }
+  .sheet-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+  .tier { margin: 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); }
+  .close {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 0;
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+  }
+  .sheet h2 { margin-top: 0.5rem; font-size: 1.85rem; line-height: 1.15; }
+  .services { margin: 0.75rem 0 0; font-size: 1rem; line-height: 1.5; color: rgb(28 22 16 / 0.85); }
+  dl { margin: 1.25rem 0 0; }
+  .row { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+  .row svg { margin-top: 0.15rem; flex: 0 0 auto; color: var(--ochre); }
+  dt { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dust); }
+  dd { margin: 0; font-size: 1rem; }
+  dd a { text-decoration: underline; text-decoration-color: rgb(196 98 45 / 0.6); text-underline-offset: 4px; }
+  .sub { display: block; margin-top: 0.2rem; color: var(--dust); font-size: 0.875rem; }
+  .quiet { margin: 1rem 0 0; color: var(--dust); font-size: 0.875rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0 1rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  .links a.primary { background: var(--ochre); color: var(--parchment); }
+  .links a.ghost { border: 1px solid var(--line); background: var(--card); }
+  .note { margin: 1.25rem 0 0; color: var(--dust); font-size: 0.875rem; line-height: 1.5; }
+  @media (min-width: 640px) {
+    main { width: min(72rem, calc(100% - 3rem)); padding-top: 1.5rem; }
+    .hero-pad { padding: 2rem; }
+    h1 { font-size: 3.75rem; }
+    .lede { font-size: 1.125rem; }
+    .strip { grid-template-columns: repeat(3, 1fr); }
+    .panel { padding: 1.25rem; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .scrim { align-items: stretch; justify-content: flex-end; }
+    .sheet { width: 28rem; max-height: none; height: 100%; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="hero-pad">
+      <div class="kicker">
+        <p class="eyebrow">AORA · Dingo Dave</p>
+        <p class="date">26 Nov 2026</p>
+      </div>
+      <div>
+        <h1>Drive Straya partners</h1>
+        <p class="lede">A clickable fact sheet of the membership: where they are, what they do, and how to reach them. Prepared for the road by Dingo Dave and the Australian Offroad Academy.</p>
+      </div>
+    </div>
+    <div class="strip">
+      <a href="https://www.google.com/maps/search/?api=1&query=4%2F450%20Sheridan%20Street%20Cairns%20North%20QLD%204870" target="_blank" rel="noreferrer"><small>Office</small><span>By appointment, 4/450 Sheridan Street, Cairns North QLD 4870</span></a>
+      <a href="mailto:drive@drivequeensland.com"><small>Network</small><span>drive@drivequeensland.com · Fiona Nicholl 0428 122 321</span></a>
+      <a href="https://www.instagram.com/drivestraya/" target="_blank" rel="noreferrer"><small>On the road</small><span>drivestraya.com · @DriveStraya · The Drive Straya Podcast</span></a>
+    </div>
+  </header>
+  <section class="panel">
+    <label class="search">
+      <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search partners</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search a town, partner, phone or service" autocomplete="off" enterkeyhint="search">
+    </label>
+    <p class="filter-label">Membership</p>
+    <div class="chips" id="tiers"></div>
+    <p class="filter-label">What they do</p>
+    <div class="chips" id="kinds"></div>
+    <label class="region">Region
+      <select id="region"></select>
+    </label>
+    <p class="count" id="count"></p>
+  </section>
+  <div id="list"></div>
+  <footer>Roster read from the Drive Queensland partner wall on 26 November 2026. Drive Straya is the public name of that network; drivestraya.com is still under construction. Phone numbers and emails are only shown when they were published on the partner’s own site. Two wall links were corrected: Punsand Bay had been pointed at Sarina Sugar Shed, and Mary Valley Rattler had a doubled “h” in the address. Australian Offroad Academy joined the family on 12 November 2026, with Dave “Dingo” Darmody named a Drive Ambassador.</footer>
+</main>
+<div class="scrim" id="scrim" hidden>
+  <article class="sheet" role="dialog" aria-modal="true" aria-labelledby="dossier-title" id="sheet"></article>
+</div>
+<script>
+const DATA = {"partners":[{"id":"aora","name":"Australian Offroad Academy","tier":"Ambassador","kind":"Training","place":"Hervey Bay, Queensland","region":"Fraser Coast","services":"Nationally recognised and practical 4x4, towing, touring and recovery training for recreational, corporate and government clients. Australia-wide delivery. Founder and principal instructor Dave “Dingo” Darmody is a Drive Straya Drive Ambassador.","website":"https://www.australianoffroadacademy.com.au/","email":"info@australianoffroadacademy.com.au","phones":["0417 761 610"],"address":"PO Box 3344, Hervey Bay QLD 4655","socials":{"facebook":"https://www.facebook.com/AustralianOffroadAcademy","instagram":"https://www.instagram.com/australian_offroad_academy","linkedin":"https://www.linkedin.com/in/dave-dingo-darmody-2860a420","x":"https://twitter.com/AustOffroadAcad"},"note":"Welcomed to the Drive Straya family on 12 November 2026. Not yet on the published logo wall while drivestraya.com is under construction."},{"id":"caravan-qld","name":"Caravanning Queensland","tier":"Platinum","kind":"Industry","place":"Brisbane, Queensland","region":"Greater Brisbane","services":"Peak body for Queensland caravan parks, camping grounds and the RV industry. Advocacy, events and member services for the drive-tourism sector.","website":"https://www.caravanqld.com.au/","phones":["(07) 3862 1833"],"socials":{"facebook":"https://www.facebook.com/CaravanningQueensland","instagram":"https://www.instagram.com/caravanningqueensland","youtube":"https://www.youtube.com/@CaravanningQueensland"}},{"id":"ttnq","name":"Tourism Tropical North Queensland","tier":"Platinum","kind":"Destination","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Destination organisation for Cairns and Great Barrier Reef, covering reef, rainforest, Daintree and Cape York drive markets.","website":"https://www.tropicalnorthqueensland.org.au/","phones":[],"socials":{},"note":"The public site blocked an automated read, so phone and email are not shown. Use the website contact page."},{"id":"mackay-isaac","name":"Mackay Isaac Tourism","tier":"Platinum","kind":"Destination","place":"Mackay, Queensland","region":"Mackay Isaac","services":"Regional tourism for Mackay, the Isaac coast and the reef-to-outback drive between the Whitsundays and the central west.","website":"https://www.mackayisaac.com/","email":"bookings@mackayisaac.com","phones":[],"socials":{"facebook":"https://www.facebook.com/tr","instagram":"https://www.instagram.com/visitmackayisaac","youtube":"https://www.youtube.com/channel/UCailnj-lmjgzNiQ2eL8LVcA","linkedin":"https://www.linkedin.com/company/mackay-tourism"}},{"id":"outback-qld","name":"Outback Queensland","tier":"Platinum","kind":"Destination","place":"Outback Queensland","region":"Outback Queensland","services":"Destination marketing for Queensland’s outback, including drive routes, events and touring operators across the west.","website":"https://www.outbackqueensland.com.au/","phones":["0400 812 350"],"socials":{"facebook":"https://www.facebook.com/OutbackQueensland","instagram":"https://www.instagram.com/outbackqueensland","youtube":"https://www.youtube.com/user/OutbackQld","linkedin":"https://www.linkedin.com/company/outbackqueensland"}},{"id":"capricorn","name":"Capricorn Coast & Southern Great Barrier Reef","tier":"Platinum","kind":"Destination","place":"Yeppoon & Rockhampton, Queensland","region":"Capricorn Coast","services":"Regional tourism for the Capricorn Coast, Rockhampton and the southern Great Barrier Reef, including coastal and hinterland drives.","website":"https://www.visitcapricorn.com.au/","phones":[],"socials":{},"note":"The public site rate-limited an automated read, so phone and email are not shown."},{"id":"diamantina","name":"Diamantina Shire","tier":"Platinum","kind":"Council","place":"Birdsville, Bedourie & Betoota, Queensland","region":"Outback Queensland","services":"Local government and visitor brand for the Diamantina, including the Birdsville Races district and Channel Country drives.","website":"https://www.thediamantina.com.au/Home","phones":[],"socials":{},"note":"Council site blocked an automated read. Use the website for the visitor centre."},{"id":"ringers","name":"Ringers Western","tier":"Platinum","kind":"Retail","place":"16–18 Kingston Drive, Helensvale, Queensland","region":"Gold Coast","services":"Australian workwear and country-lifestyle brand stocked for station, touring and outback life.","website":"https://www.ringerswestern.com/","email":"info@ringerswestern.com","phones":[],"address":"16-18 Kingston Drive, Helensvale, Queensland, 4212","socials":{}},{"id":"ipswich","name":"Discover Ipswich","tier":"Gold","kind":"Destination","place":"Ipswich, Queensland","region":"Greater Brisbane","services":"Visitor information for Ipswich city, heritage precincts and day drives on Brisbane’s western edge.","website":"https://www.discoveripswich.com.au/","email":"info@visitipswich.com.au","phones":[],"socials":{"facebook":"https://www.facebook.com/tr","instagram":"http://www.instagram.com/visitipswich","youtube":"https://www.youtube.com/@visitipswich"}},{"id":"skyrail","name":"Skyrail Rainforest Cableway","tier":"Gold","kind":"Attraction","place":"6 Skyrail Drive, Smithfield, Queensland","region":"Tropical North Queensland","services":"Rainforest cableway from Smithfield into the Wet Tropics, a signature stop on Cairns drive itineraries.","website":"https://www.skyrail.com.au/","phones":[],"address":"6 Skyrail Drive, Smithfield, QLD, 4878","socials":{"facebook":"https://www.facebook.com/skyrailcairns","instagram":"https://www.instagram.com/skyrailcairns","youtube":"https://www.youtube.com/channel/UC62rJ-pr16AC-QDVix887Uw"}},{"id":"hartleys","name":"Hartley's Crocodile Adventures","tier":"Gold","kind":"Attraction","place":"Palm Cove, Cairns, Queensland","region":"Tropical North Queensland","services":"Wildlife park and crocodile experience on the Captain Cook Highway north of Cairns.","website":"https://www.crocodileadventures.com/","email":"sales@crocodileadventures.com","phones":["(07) 4055 3576"],"socials":{"facebook":"https://www.facebook.com/HartleysCrocodileAdventures","instagram":"https://www.instagram.com/hartleyscrocodileadventures"}},{"id":"cook","name":"Cook Shire Council","tier":"Gold","kind":"Council","place":"Cooktown, Queensland","region":"Tropical North Queensland","services":"Local government for Cooktown and Cape York communities. Gateway services for the Peninsula Developmental Road.","website":"https://www.cook.qld.gov.au/","phones":[],"socials":{},"note":"No public phone or email was readable from the homepage."},{"id":"sunset","name":"Sunset Tourist Park Mount Isa","tier":"Gold","kind":"Holiday parks","place":"Mount Isa, Queensland","region":"Outback Queensland","services":"Tourist park for travellers overnighting in Mount Isa, on the Overlanders Way and Isa rodeo circuit.","website":"https://www.sunsettop.com.au/","email":"ask@sunsettop.com.au","phones":[],"socials":{"facebook":"https://www.facebook.com/Sunset-Top-Tourist-Park-177253542331987","instagram":"https://www.instagram.com/sunsettouristpark"}},{"id":"mount-isa","name":"Mount Isa — Outback at Isa","tier":"Gold","kind":"Destination","place":"Mount Isa, Queensland","region":"Outback Queensland","services":"Visitor brand for Mount Isa, the Underground Hospital, Riversleigh fossil centre and north-west drives.","website":"https://discovermountisa.com.au/","phones":["(07) 4747 3200","(07) 4749 1555"],"socials":{"facebook":"https://www.facebook.com/ExperienceMountIsa","instagram":"https://www.instagram.com/experience.mountisa","youtube":"https://www.youtube.com/@ExperienceMountIsa","tiktok":"https://www.tiktok.com/@experiencemountisa"}},{"id":"flinders","name":"Flinders Shire Council","tier":"Gold","kind":"Council","place":"Hughenden, Queensland","region":"Outback Queensland","services":"Local government for Hughenden on the Overlanders Way and the Australian Dinosaur Trail.","website":"https://www.flinders.qld.gov.au/","phones":[],"socials":{},"note":"Council site blocked an automated read."},{"id":"buffs","name":"Buffs Club Mount Isa","tier":"Gold","kind":"Attraction","place":"Mount Isa, Queensland","region":"Outback Queensland","services":"Community club in Mount Isa — meals, entertainment and a social stop for travellers through the Isa.","website":"https://buffs.com.au/","phones":["(07) 4743 2365"],"socials":{}},{"id":"koala","name":"Kuranda Koala Gardens","tier":"Gold","kind":"Attraction","place":"Kuranda, Queensland","region":"Tropical North Queensland","services":"Wildlife gardens in Kuranda village, above Cairns on the range road and Skyrail/Kuranda scenic circuit.","website":"https://www.koalagardens.com/","email":"reservations@koalagardens.com","phones":["(07) 4093 9953"],"socials":{"facebook":"https://www.facebook.com/Kuranda-Koala-Gardens-236308029719974","instagram":"https://www.instagram.com/kurandakoalagardens","x":"https://twitter.com/kurandakoala"}},{"id":"gc-holiday","name":"BIG4 Gold Coast Holiday Park","tier":"Gold","kind":"Holiday parks","place":"66–86 Siganto Drive, Helensvale, Queensland","region":"Gold Coast","services":"Large holiday park at Helensvale for Gold Coast family stays, with cabins and powered sites.","website":"https://goldcoastholidaypark.com.au/","email":"stay@gcpark.com.au","phones":["(07) 5514 4400"],"address":"66-86 Siganto Drive, Helensvale, QLD, 4212","socials":{"facebook":"https://www.facebook.com/BIG4GoldCoastHolidayPark","instagram":"https://www.instagram.com/big4goldcoast","youtube":"https://www.youtube.com/channel/UCPh3KKrTi7zxc0FQlxL2PFQ","tiktok":"https://www.tiktok.com/@big4goldcoastholidaypark"}},{"id":"bowen","name":"Tourism Bowen","tier":"Gold","kind":"Destination","place":"Bowen, Queensland","region":"Whitsundays","services":"Visitor information for Bowen, the northern gateway of the Whitsundays, beaches and produce coast.","website":"https://www.tourismbowen.com.au/","phones":[],"socials":{},"note":"No reliable public phone or email was readable from the homepage."},{"id":"charters","name":"Visit Charters Towers","tier":"Gold","kind":"Destination","place":"Charters Towers, Queensland","region":"North Queensland","services":"Visitor information centre for the goldfields city of Charters Towers, on the Overlanders Way inland from Townsville.","website":"https://www.visitcharterstowers.com.au/","email":"tourinfo@charterstowers.qld.gov.au","phones":["(07) 4761 5533"],"socials":{"facebook":"https://www.facebook.com/VisitChartersTowers","instagram":"https://www.instagram.com/visitcharterstowers"}},{"id":"mckinlay","name":"McKinlay Shire Council","tier":"Gold","kind":"Council","place":"Julia Creek, Queensland","region":"Outback Queensland","services":"Local government for Julia Creek and McKinlay Shire on the Overlanders Way.","website":"https://www.mckinlay.qld.gov.au/Home","phones":[],"socials":{},"note":"Council site blocked an automated read."},{"id":"winton","name":"Winton Shire Council","tier":"Gold","kind":"Council","place":"Winton, Queensland","region":"Outback Queensland","services":"Local government for Winton, dinosaur country, the Waltzing Matilda Centre and Age of Dinosaurs.","website":"https://www.winton.qld.gov.au/","phones":[],"socials":{},"note":"Council site blocked an automated read."},{"id":"sc-parks","name":"Sunshine Coast Holiday Parks","tier":"Gold","kind":"Holiday parks","place":"Sunshine Coast, Queensland","region":"Sunshine Coast","services":"Council holiday parks along the Sunshine Coast for beach and hinterland stays.","website":"https://www.sunshinecoastholidayparks.com.au/","phones":["(07) 5444 1201","(07) 5448 7157"],"socials":{}},{"id":"gympie","name":"Gympie Regional Council","tier":"Gold","kind":"Council","place":"Gympie, Queensland","region":"Sunshine Coast","services":"Local government for Gympie and the Mary Valley, on the Bruce Highway between Brisbane and the coast.","website":"https://www.gympie.qld.gov.au/","phones":[],"socials":{},"note":"Council site blocked an automated read."},{"id":"pioneers","name":"Outback Pioneers","tier":"Gold","kind":"Attraction","place":"128 Eagle Street, Longreach, Queensland","region":"Outback Queensland","services":"Outback experiences in Longreach — tours, dining and stories of western Queensland, led by Richard Kinnon.","website":"https://www.outbackpioneers.com.au/","email":"reservations@outbackpioneers.com.au","phones":["(07) 4658 1776"],"address":"128 Eagle Street, Longreach, Queensland, 4730","socials":{"facebook":"https://www.facebook.com/OutbackPioneers","instagram":"https://www.instagram.com/outbackpioneers","youtube":"https://www.youtube.com/channel/UCKAzm1N1OSvA1T6EdCyd4qQ","tiktok":"https://www.tiktok.com/@outbackpioneers"}},{"id":"ingenia","name":"Ingenia Holidays","tier":"Gold","kind":"Holiday parks","place":"National network","region":"Statewide","services":"Holiday-park group with parks across Queensland and Australia for caravan and cabin stays.","website":"https://www.ingeniaholidays.com.au/","phones":[],"socials":{"facebook":"https://www.facebook.com/ingeniaholidays","instagram":"https://www.instagram.com/ingeniaholidays","youtube":"https://www.youtube.com/@ingeniaholidayparks","tiktok":"https://www.tiktok.com/@ingeniaholidays"},"note":"No single public park phone was readable. Use the website to pick a park."},{"id":"cassowary","name":"Cassowary Coast Tourism","tier":"Gold","kind":"Destination","place":"Innisfail, Mission Beach & Tully, Queensland","region":"Tropical North Queensland","services":"Regional tourism between Cairns and Townsville: Mission Beach, Tully, Innisfail and the Cassowary Coast drive.","website":"https://cassowarycoasttourism.com.au/","phones":[],"socials":{},"note":"No reliable public phone or email was readable from the homepage."},{"id":"herberton","name":"Historic Village Herberton","tier":"Gold","kind":"Attraction","place":"Herberton, Queensland","region":"Tropical North Queensland","services":"Historic village museum in the Atherton Tablelands tin-mining town of Herberton.","website":"https://www.historicvillageherberton.com.au/","phones":["(07) 4096 2002"],"socials":{"facebook":"https://www.facebook.com/HistoricVillageHerberton"}},{"id":"cobbold","name":"Cobbold Gorge","tier":"Gold","kind":"Attraction","place":"Forsayth, Etheridge, Queensland","region":"Far North Queensland","services":"Sandstone gorge tours, boat cruise and bush stay west of Georgetown, a Savannah Way stop.","website":"https://www.cobboldgorge.com.au/","email":"enquiries@cobboldgorge.com.au","phones":["1800 669 922","(07) 4062 5470"],"socials":{"facebook":"https://www.facebook.com/CobboldGorge","instagram":"https://www.instagram.com/cobboldgorge","youtube":"https://www.youtube.com/user/gorgesish","tiktok":"https://www.tiktok.com/@cobboldgorge","x":"https://twitter.com/cobboldgorge"}},{"id":"toowoomba","name":"Visit Toowoomba Region","tier":"Gold","kind":"Destination","place":"Toowoomba, Queensland","region":"Queensland Country","services":"Regional tourism for Toowoomba and the Darling Downs, including garden, food and range drives.","website":"https://visit.tr.qld.gov.au/","phones":[],"socials":{},"note":"The site did not return a readable contact page to the checker."},{"id":"qfom","name":"Qantas Founders Museum","tier":"Gold","kind":"Attraction","place":"Longreach, Queensland","region":"Outback Queensland","services":"Museum of Qantas origins in Longreach, with aircraft tours on the Thomson River side of town.","website":"https://www.qfom.com.au/","email":"info@qfom.com.au","phones":["(07) 4658 3737"],"socials":{"facebook":"https://www.facebook.com/QantasFoundersMuseum","instagram":"https://www.instagram.com/qantas_founders_museum","youtube":"https://www.youtube.com/@qfom747"}},{"id":"rattler","name":"Mary Valley Rattler","tier":"Gold","kind":"Attraction","place":"Gympie, Queensland","region":"Sunshine Coast","services":"Heritage railway through the Mary Valley from Gympie, a drive-and-ride day from the Sunshine Coast.","website":"https://www.maryvalleyrattler.com.au/","phones":["(07) 5482 2750"],"socials":{"facebook":"https://www.facebook.com/maryvalleyrattler","instagram":"https://www.instagram.com/maryvalleyrattler","youtube":"https://www.youtube.com/channel/UC_yanET0ES5ldi8KuJsOs5w","linkedin":"https://www.linkedin.com/company/mary-valley-rattler","x":"https://x.com/MVRattler"},"note":"The partner wall linked this with a doubled “h” in the URL. This sheet uses the working address."},{"id":"longreach","name":"Experience Longreach","tier":"Gold","kind":"Destination","place":"Longreach, Queensland","region":"Outback Queensland","services":"Visitor brand for the Longreach Region — Qantas, Stockman’s Hall of Fame, Thomson River and outback drives.","website":"https://experiencelongreach.com.au/","phones":["(07) 4658 4142","(07) 4658 4141"],"socials":{"facebook":"https://www.facebook.com/pg/ExperienceLongreach","instagram":"https://www.instagram.com/experiencelongreach","youtube":"https://www.youtube.com/channel/UCkbldGgha8VwA0fzdG2blVw"}},{"id":"cqh","name":"Central Queensland Highlands","tier":"Gold","kind":"Destination","place":"Emerald, Queensland","region":"Central Queensland","services":"Regional tourism for the Central Highlands around Emerald, gemfields and the inland highway network.","website":"https://centralqueenslandhighlands.com.au/","phones":[],"socials":{},"note":"The public site rate-limited an automated read."},{"id":"mareeba","name":"Visit Mareeba Shire","tier":"Gold","kind":"Destination","place":"Mareeba, Queensland","region":"Tropical North Queensland","services":"Visitor information for Mareeba Shire on the Atherton Tablelands, including coffee, mango country and the Savannah Way.","website":"https://www.visitmareebashire.org/","email":"admin@mareebashiretourism.org","phones":["0439 950 526"],"socials":{"facebook":"https://www.facebook.com/mareebashiretourism","instagram":"https://www.instagram.com/visitmareebashire","tiktok":"https://www.tiktok.com/@visitmareebashire"}},{"id":"scenic","name":"Destination Scenic Rim","tier":"Gold","kind":"Destination","place":"Scenic Rim, Queensland","region":"Greater Brisbane","services":"Regional tourism for the Scenic Rim — Tamborine, Boonah, rail trails and hinterland drives south of Brisbane.","website":"https://www.destinationscenicrim.com/","phones":[],"socials":{"facebook":"https://www.facebook.com/destinationscenicrim","instagram":"https://www.instagram.com/destinationscenicrim"}},{"id":"overlanders","name":"Overlanders Way","tier":"Gold","kind":"Drive","place":"Townsville to Tennant Creek","region":"Outback Queensland","services":"Drive Straya’s own signed route from the coast at Townsville through Charters Towers, Hughenden, Richmond, Julia Creek and Mount Isa toward the Territory.","website":"https://drivequeensland.com/drive/overlanders-way/","email":"drive@drivequeensland.com","phones":[],"address":"4/450 Sheridan Street, Cairns North QLD 4870","socials":{"facebook":"https://www.facebook.com/drive.queensland","instagram":"https://www.instagram.com/drive.queensland","linkedin":"https://www.linkedin.com/company/drive-queensland"},"note":"This tile is a Drive Queensland route, not a separate business. Contact the network office."},{"id":"moreton","name":"Visit Moreton Bay","tier":"Gold","kind":"Destination","place":"Moreton Bay, Queensland","region":"Greater Brisbane","services":"Regional tourism for Redcliffe, Bribie, North Lakes and the bay islands on Brisbane’s north side.","website":"https://www.visitmoretonbay.com.au/","email":"info@visitmoretonbayregion.com.au","phones":[],"socials":{"facebook":"https://www.facebook.com/visitmoretonbayregion","instagram":"https://www.instagram.com/visitmoretonbay","youtube":"https://www.youtube.com/@visitmoretonbay","tiktok":"https://www.tiktok.com/@visitmoretonbay"}},{"id":"cag","name":"Cairns Adventure Group","tier":"Gold","kind":"Attraction","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Adventure operator group in Cairns — rafting, ballooning, reef and rainforest trips used as drive-itinerary add-ons.","website":"https://www.cairnsadventuregroup.com.au/","email":"info@cairnsadventuregroup.com.au","phones":["1800 801 540","(07) 4042 7300"],"socials":{"facebook":"https://www.facebook.com/cairnsadventuregroup","instagram":"https://www.instagram.com/cairnsadventuregroup","youtube":"https://www.youtube.com/channel/UCjcoaGaY7YdNlO74S_000ug","tiktok":"https://www.tiktok.com/@cairnsadventuregroup"}},{"id":"tablelands","name":"Atherton Tablelands","tier":"Gold","kind":"Destination","place":"Atherton, Queensland","region":"Tropical North Queensland","services":"Visitor brand for the Atherton Tablelands: crater lakes, waterfalls, villages and the range roads above Cairns.","website":"https://www.athertontablelands.com.au/","email":"office@athertontablelands.com.au","phones":[],"socials":{"facebook":"https://www.facebook.com/athertontablelands"}},{"id":"tasman","name":"Tasman Holiday Parks","tier":"Gold","kind":"Holiday parks","place":"National network","region":"Statewide","services":"Holiday-park chain with Queensland coastal and regional parks for caravans, cabins and camping.","website":"https://tasmanholidayparks.com/","phones":["(07) 2116 0298"],"socials":{"facebook":"https://www.facebook.com/tasmanholidayparks","instagram":"https://www.instagram.com/tasmanholidayparksaus","youtube":"https://www.youtube.com/@tasmanholidayparks"}},{"id":"boulia","name":"Boulia Shire","tier":"Gold","kind":"Council","place":"Boulia, Queensland","region":"Outback Queensland","services":"Local government and tourism for Boulia, the Min Min Encounter and the Donohue Highway / Outback Way.","website":"https://www.boulia.qld.gov.au/Tourism","phones":[],"socials":{},"note":"Council site blocked an automated read."},{"id":"etheridge","name":"Unearth Etheridge","tier":"Gold","kind":"Destination","place":"Georgetown, Queensland","region":"Far North Queensland","services":"Tourism brand for Etheridge Shire — Georgetown, Forsayth, Cobbold country and the Savannah Way.","website":"https://www.unearthetheridge.com.au/Home","phones":[],"socials":{},"note":"Site blocked an automated read."},{"id":"spirit","name":"Western Queensland Spirit","tier":"Gold","kind":"Attraction","place":"50 Bungeworgorai Lane, Dargal Road, Queensland","region":"Outback Queensland","services":"Outback distillery (The Outback Distilling Co.) on the western Queensland spirit trail near Roma.","website":"https://www.westernqldspirit.com/","email":"info@westernqldspirit.com","phones":[],"address":"50 Bungeworgorai Ln, Dargal Road, QLD, 4455","socials":{"facebook":"https://facebook.com/westernqldspirit","instagram":"https://instagram.com/westernqldspirit"}},{"id":"savannah-round","name":"Savannah in the Round","tier":"Gold","kind":"Event","place":"Gulf Savannah, Queensland","region":"Far North Queensland","services":"Outback music event on the Savannah Way, pairing live music with Gulf country towns.","website":"https://www.savannahintheround.com.au/","phones":[],"socials":{"facebook":"https://www.facebook.com/savannahintheround","instagram":"https://www.instagram.com/savannahintheround","tiktok":"https://www.tiktok.com/@savannahintheround"}},{"id":"qmf","name":"Queensland Music Trails","tier":"Gold","kind":"Event","place":"Queensland","region":"Statewide","services":"Queensland Music Festival’s touring music trails, taking concerts to regional and outback towns.","website":"https://www.qmf.org.au/","email":"info@qmf.org.au","phones":[],"socials":{"facebook":"https://www.facebook.com/qldmusicfest","instagram":"https://www.instagram.com/qldmusicfest","youtube":"https://www.youtube.com/user/qldmusicfest","x":"https://x.com/i"}},{"id":"opera","name":"Opera Queensland","tier":"Gold","kind":"Event","place":"Brisbane, with outback seasons","region":"Statewide","services":"State opera company and partner in Festival of Outback Opera, taking performance into western Queensland.","website":"https://www.oq.com.au/","email":"info@oq.com.au","phones":["(07) 3735 3030"],"socials":{"facebook":"https://www.facebook.com/OperaQueensland","instagram":"https://www.instagram.com/operaqueensland","youtube":"https://www.youtube.com/channel/UCopvvgazTlFjCQpLhMgob6A","linkedin":"https://www.linkedin.com/company/opera-queensland","x":"https://twitter.com/OperaQueensland"}},{"id":"tcof","name":"Toowoomba Carnival of Flowers","tier":"Gold","kind":"Event","place":"Toowoomba, Queensland","region":"Queensland Country","services":"Spring garden festival in Toowoomba, a major Darling Downs drive-and-stay event.","website":"https://tcof.com.au/","email":"info@tcof.com.au","phones":[],"socials":{"facebook":"https://www.facebook.com/CarnivalFlowers","instagram":"https://www.instagram.com/toowoombacarnivalflowers","linkedin":"https://www.linkedin.com/company/toowoomba"}},{"id":"rodeo","name":"Mount Isa Rodeo","tier":"Gold","kind":"Event","place":"Mount Isa, Queensland","region":"Outback Queensland","services":"Annual rodeo in Mount Isa, one of Australia’s largest, on the August outback events calendar.","website":"https://www.mountisarodeo.com.au/","phones":[],"socials":{"facebook":"http://www.facebook.com/2008/fbml","instagram":"https://www.instagram.com/mountisarodeo"}},{"id":"thunder","name":"Thunder in the Canefields","tier":"Gold","kind":"Event","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Speedway meeting at Cairns Speedway, promoted as Thunder in the Canefields.","website":"https://cairnsspeedway.com/","email":"secretary@cairnsspeedway.com","phones":[],"socials":{"facebook":"https://www.facebook.com/cairnsspeedway2","instagram":"https://www.instagram.com/cairnsspeedway","youtube":"https://www.youtube.com/@cairnsspeedway"}},{"id":"gourmay","name":"GourMay Mary Valley","tier":"Gold","kind":"Event","place":"Mary Valley, Queensland","region":"Sunshine Coast","services":"Food festival through the Mary Valley towns south of Gympie.","website":"https://www.gourmaymaryvalley.com.au/","phones":[],"socials":{"facebook":"https://www.facebook.com/maryvalleyqld","instagram":"https://www.instagram.com/visit.mary.valley"}},{"id":"birdsville","name":"Birdsville Races","tier":"Gold","kind":"Event","place":"Birdsville, Queensland","region":"Outback Queensland","services":"September race meeting in Birdsville, the signature Channel Country event on the Diamantina.","website":"https://birdsvilleraces.com/","email":"rob@cardinalcomms.com.au","phones":["0477 396 794","0422 233 996"],"socials":{"facebook":"https://www.facebook.com/BirdsvilleRaces","instagram":"https://www.instagram.com/birdsvilleraces","x":"https://twitter.com/birdsvilleraces"}},{"id":"cjc","name":"Cairns Jockey Club","tier":"Gold","kind":"Event","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Cannon Park races in Cairns, including the Cairns Amateurs carnival.","website":"https://www.cairnsjockeyclub.com.au/","email":"info@cairnsjockeyclub.com.au","phones":["(07) 4054 1203"],"socials":{"facebook":"https://www.facebook.com/tr","instagram":"https://www.instagram.com/cairnsjockeyclub"}},{"id":"gctp","name":"Gold Coast Tourist Parks","tier":"Gold","kind":"Holiday parks","place":"Gold Coast, Queensland","region":"Gold Coast","services":"City of Gold Coast tourist parks — beachside camping and caravan parks along the coast.","website":"https://goldcoasttouristparks.com.au/","phones":["(07) 5577 2849","(07) 5577 3932"],"address":"City of Gold Coast PO Box 5042 GOLD COAST MC 9726, Gold Coast, 9726","socials":{"facebook":"https://www.facebook.com/GCTouristParks","instagram":"https://www.instagram.com/gctouristparks","youtube":"https://www.youtube.com/user/goldcoasttouristpark"}},{"id":"big4","name":"BIG4 Holiday Parks","tier":"Gold","kind":"Holiday parks","place":"National network","region":"Statewide","services":"National holiday-park brand. Member parks across Queensland for powered sites, cabins and family stays.","website":"https://www.big4.com.au/","phones":[],"socials":{"facebook":"https://www.facebook.com/BIG4HolidayParks","instagram":"https://www.instagram.com/big4holidayparks","youtube":"https://www.youtube.com/user/big4holidayparks","linkedin":"https://www.linkedin.com/company/big4-holiday-parks-of-australia","x":"https://x.com/big4holidaypark"},"note":"No single head-office phone was readable. Use the website to choose a park."},{"id":"sarina","name":"Sarina Sugar Shed","tier":"Silver","kind":"Attraction","place":"Sarina, Queensland","region":"Mackay Isaac","services":"Sugar-industry attraction in Sarina, south of Mackay, with mill tours and rum tastings.","website":"https://sarinasugarshed.com.au/","phones":[],"socials":{},"note":"Site blocked an automated read."},{"id":"riverboat","name":"Kuranda Riverboat","tier":"Silver","kind":"Attraction","place":"Kuranda, Queensland","region":"Tropical North Queensland","services":"River cruise on the Barron River at Kuranda, paired with a Tablelands or range-road day.","website":"https://kurandariverboat.com.au/","phones":["0412 159 212"],"socials":{"facebook":"https://www.facebook.com/kurandariverboat","instagram":"https://www.instagram.com/kuranda_riverboat","youtube":"https://www.youtube.com/channel/UCkHpiOtOaExpWAapRffdVxQ"}},{"id":"honeybee","name":"Honeybee House","tier":"Silver","kind":"Holiday parks","place":"146 Ganyan Drive, Speewah, Queensland","region":"Tropical North Queensland","services":"Holiday accommodation at Speewah, in the Kuranda and Tablelands hinterland.","website":"https://honeybeehouse.com.au/","email":"info@honeybeehouse.com.au","phones":[],"address":"146 Ganyan Drive, Speewah, Queensland, 4881","socials":{"facebook":"https://www.facebook.com/honeybeehousekuranda","instagram":"https://www.instagram.com/honeybee_house"}},{"id":"boobook","name":"Boobook Explore","tier":"Silver","kind":"Attraction","place":"15 Quintin Street, Roma, Queensland","region":"Queensland Country","services":"Day tours and outback experiences based in Roma, on the Warrego Highway.","website":"https://www.boobookexplore.com.au/","phones":["(07) 4622 2646"],"address":"15 Quintin St, Roma, Queensland, 4455","socials":{"facebook":"https://www.facebook.com/boobookexplore","instagram":"https://www.instagram.com/boobookexplore"}},{"id":"larc","name":"1770 LARC! Tours","tier":"Silver","kind":"Attraction","place":"535 Captain Cook Drive, Seventeen Seventy, Queensland","region":"Capricorn Coast","services":"Amphibious LARC tours at Agnes Water and 1770, the southern gateway of the Great Barrier Reef.","website":"https://1770larctours.com.au/","email":"info@1770larctours.com.au","phones":["(07) 4974 9422"],"address":"535 Captain Cook Drive, Seventeen Seventy, QLD, 4677","socials":{"facebook":"https://www.facebook.com/1770Larc","instagram":"https://www.instagram.com/1770larc","youtube":"https://youtube.com/@1770larc"}},{"id":"smithfield","name":"Smithfield Shopping Centre","tier":"Silver","kind":"Retail","place":"Smithfield, Cairns, Queensland","region":"Tropical North Queensland","services":"Shopping centre at Smithfield, the northern supply stop before the Captain Cook Highway and Kuranda range.","website":"https://www.smithfieldcentre.com.au/","email":"infosmithfieldcentre@jll.com","phones":["(07) 2143 4534","0461 477 648"],"socials":{"instagram":"https://www.instagram.com/p"}},{"id":"goldtower","name":"Goldtower Central","tier":"Silver","kind":"Retail","place":"32 New Queen Road, Charters Towers, Queensland","region":"North Queensland","services":"Retail centre in Charters Towers for travellers restocking on the Overlanders Way.","website":"https://goldtower.com.au/","email":"leasing@goldtower.com.au","phones":["0488 774 653"],"address":"32 New Queen Road, Charters Towers, QLD, 4820","socials":{"facebook":"https://www.facebook.com/GoldtowerCentral","instagram":"https://www.instagram.com/goldtowercentral"}},{"id":"sdrc","name":"Southern Downs & Granite Belt","tier":"Silver","kind":"Destination","place":"Warwick & Stanthorpe, Queensland","region":"Queensland Country","services":"Visitor region for the Southern Downs and Granite Belt — wine, cold country and the New England Highway.","website":"https://southerndownsandgranitebelt.com.au/","email":"visitor@sdrc.qld.gov.au","phones":[],"socials":{"facebook":"https://www.facebook.com/SouthernDownsandGraniteBelt","instagram":"https://www.instagram.com/southerndownsandgranitebelt","x":"https://twitter.com/SthDownsGBelt"}},{"id":"croydon","name":"Visit Croydon","tier":"Silver","kind":"Destination","place":"Croydon, Queensland","region":"Far North Queensland","services":"Visitor brand for Croydon, a Gulf Savannah gold town on the Savannah Way between Georgetown and Normanton.","website":"https://www.visitcroydonqld.com.au/Home","phones":[],"socials":{},"note":"Site blocked an automated read."},{"id":"gday","name":"G'day Parks","tier":"Silver","kind":"Holiday parks","place":"National network","region":"Statewide","services":"NRMA holiday-park brand with Queensland parks for caravan, cabin and camping stays.","website":"https://gdayparks.com.au/","phones":[],"socials":{"facebook":"https://www.facebook.com/GdayParks","instagram":"https://www.instagram.com/gdayparks"}},{"id":"burdekin","name":"Burdekin","tier":"Silver","kind":"Destination","place":"Ayr, Queensland","region":"North Queensland","services":"Visitor brand for the Burdekin — Ayr, Home Hill and the cane coast south of Townsville.","website":"https://www.visitburdekin.com.au/Home","phones":[],"socials":{},"note":"Site blocked an automated read."},{"id":"punsand","name":"Punsand Bay Cape York Camping","tier":"Silver","kind":"Holiday parks","place":"Lot 11 Punsand Bay via Bamaga, Queensland","region":"Far North Queensland","services":"Beach campground and cabins 5 km from the Tip, open seasonally April to December. Camping, cabins, pool, bar and restaurant.","website":"https://www.capeyorkcamping.com.au/","email":"frontdesk@capeyorkcamping.com.au","phones":["(07) 4069 1722"],"address":"Lot 11 Punsand Bay via Bamaga QLD 4876","socials":{"facebook":"https://www.facebook.com/capeyorkcamping","instagram":"https://www.instagram.com/capeyorkcampingpunsandbay","x":"https://twitter.com/capeyorkcamping"},"note":"The partner wall linked this logo to Sarina Sugar Shed. This sheet uses the Punsand Bay site."},{"id":"gulf","name":"Gulf Savannah Development","tier":"Silver","kind":"Industry","place":"Georgetown, Queensland","region":"Far North Queensland","services":"Regional development body for the Gulf Savannah — Normanton, Karumba, Croydon, Georgetown and the Savannah Way.","website":"https://www.gulfsavannahdevelopment.com.au/","email":"ceo@gulf-savannah.com.au","phones":["0421 995 205","0408 051 358"],"socials":{"facebook":"https://www.facebook.com/GulfSavannahDevelopment","instagram":"https://www.instagram.com/gulfsavannah","linkedin":"https://www.linkedin.com/company/gulf-savannah-development"}},{"id":"reefinfo","name":"Reef Info Visitor Centre","tier":"Bronze","kind":"Attraction","place":"Airlie Beach, Queensland","region":"Whitsundays","services":"Visitor centre for reef and island information in the Whitsundays.","website":"https://www.reefinfo.com.au/","phones":[],"socials":{},"note":"No public phone or email was readable from the homepage."},{"id":"griffith","name":"Griffith University","tier":"Supporter","kind":"Industry","place":"Brisbane & Gold Coast, Queensland","region":"Greater Brisbane","services":"University supporter of the drive-tourism network, including tourism, business and research programs.","website":"https://www.griffith.edu.au/","phones":[],"socials":{},"note":"University site blocked an automated read."},{"id":"bishopp","name":"Bishopp","tier":"Supporter","kind":"Industry","place":"Queensland","region":"Statewide","services":"Outdoor advertising company. Supporter partner for campaign media across regional Queensland.","website":"https://bishopp.com.au/","phones":["(07) 3552 5600"],"socials":{"facebook":"https://www.facebook.com/bishoppBOA","instagram":"https://www.instagram.com/bishoppoutdooradvertising","youtube":"https://www.youtube.com/channel/UCWZ77ibOZrNdpfi96bOIs6Q","linkedin":"https://www.linkedin.com/company/bishopp-outdoor-advertising-pty-ltd"}},{"id":"coastal","name":"Coastal Broadcasters (NQ Radio)","tier":"Supporter","kind":"Industry","place":"Innisfail, Queensland","region":"Tropical North Queensland","services":"Regional radio broadcaster trading as NQ Radio. The partner wall had no working link.","website":"https://nqradio.com.au/","phones":[],"socials":{},"note":"No public phone or email was readable. Business directories place the station in Innisfail."},{"id":"studio","name":"Studio Productions","tier":"Supporter","kind":"Industry","place":"Queensland","region":"Statewide","services":"Broadcast television and video production house listed as a media supporter.","website":"https://studioproductions.com.au/","email":"admin@studioproductions.com.au","phones":["0408 555 665"],"socials":{"facebook":"https://www.facebook.com/StudioProAU","instagram":"https://www.instagram.com/studioproductionsau"}},{"id":"connect","name":"Connect Tourism","tier":"Supporter","kind":"Industry","place":"Sunshine Coast, Queensland","region":"Sunshine Coast","services":"Tourism consultancy working with destinations and operators.","website":"https://www.connecttourism.com.au/","email":"susan@connecttourism.com.au","phones":[],"address":"Sunshine Mwy, Sunshine Coast, QLD, 4558","socials":{"facebook":"https://www.facebook.com/ConnectTourismPtyLtd","linkedin":"https://www.linkedin.com/company/connecttourism"}},{"id":"cloud","name":"CloudActive","tier":"Supporter","kind":"Industry","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Digital studio that builds and maintains the Drive Queensland website.","website":"https://cloudactive.io/","phones":["(07) 4085 9091"],"socials":{}},{"id":"liz","name":"Liz Inglis Media + Communications","tier":"Supporter","kind":"Industry","place":"Queensland","region":"Statewide","services":"Media and communications practitioner. The published link is a LinkedIn profile.","website":"https://au.linkedin.com/in/lizinglis","phones":[],"socials":{}},{"id":"gateway","name":"Gateway Media Group","tier":"Supporter","kind":"Industry","place":"Cairns, Queensland","region":"Tropical North Queensland","services":"Cairns media group. Handles industry publishing around the drive network, including Fiona Nicholl’s partnership desk.","website":"https://gatewaymedia.com.au/","email":"fiona@gatewaymedia.com.au","phones":["(07) 4051 1777"],"socials":{}},{"id":"traveloris","name":"Traveloris","tier":"Supporter","kind":"Industry","place":"Australia","region":"Statewide","services":"Trip-planning platform for building and sharing Australian drive itineraries.","website":"https://www.traveloris.com/","phones":["(03) 6841 7495"],"socials":{}},{"id":"driveqld","name":"Drive Queensland","tier":"Supporter","kind":"Industry","place":"4/450 Sheridan Street, Cairns North, Queensland","region":"Tropical North Queensland","services":"The operating organisation behind Drive Straya. Collaborative marketing, consumer shows, maps, guides and the partner network. The new public site is under construction.","website":"https://drivequeensland.com/","email":"drive@drivequeensland.com","phones":[],"address":"4/450 Sheridan Street, Cairns North QLD 4870","socials":{"facebook":"https://www.facebook.com/drive.queensland","instagram":"https://www.instagram.com/drive.queensland","linkedin":"https://www.linkedin.com/company/drive-queensland"}}],"tiers":["Ambassador","Platinum","Gold","Silver","Bronze","Supporter"],"regions":["Fraser Coast","Greater Brisbane","Tropical North Queensland","Mackay Isaac","Outback Queensland","Capricorn Coast","Gold Coast","Whitsundays","North Queensland","Sunshine Coast","Statewide","Far North Queensland","Queensland Country","Central Queensland"],"kinds":["Training","Industry","Destination","Council","Retail","Attraction","Holiday parks","Drive","Event"],"extras":{"aora":[{"label":"Dingo Dave","href":"https://dingo-dave.com.au/"},{"label":"Dave@4x4training.com.au","href":"mailto:Dave@4x4training.com.au"}],"driveqld":[{"label":"drivestraya.com","href":"https://drivestraya.com/"},{"label":"@DriveStraya","href":"https://www.instagram.com/drivestraya/"},{"label":"Drive Straya Podcast","href":"https://podcasts.apple.com/au/podcast/the-drive-straya-podcast/id6813288970"},{"label":"fiona@drivequeensland.com","href":"mailto:fiona@drivequeensland.com"},{"label":"0428 122 321","href":"tel:+61428122321"}]},"socialLabels":{"facebook":"Facebook","instagram":"Instagram","youtube":"YouTube","linkedin":"LinkedIn","tiktok":"TikTok","x":"X"}};
+const state = { q: "", tier: "All", kind: "All", region: "All" };
+const q = document.getElementById("q");
+const list = document.getElementById("list");
+const scrim = document.getElementById("scrim");
+const sheet = document.getElementById("sheet");
+const region = document.getElementById("region");
+
+function esc(value) {
+  const map = { "&": "&" + "amp;", "<": "&" + "lt;", ">": "&" + "gt;", '"': "&" + "quot;", "'": "&" + "#39;" };
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => map[ch]);
+}
+function telHref(phone) {
+  const digits = String(phone).replace(/\D/g, "");
+  return digits.startsWith("0") ? "tel:+61" + digits.slice(1) : "tel:+" + digits;
+}
+function hostLabel(url) {
+  try { return new URL(url).host.replace(/^www\./, ""); } catch { return url; }
+}
+function mapsHref(partner) {
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(partner.address || partner.place);
+}
+function matches(partner) {
+  const needle = state.q.trim().toLowerCase();
+  if (!needle) return true;
+  return [partner.name, partner.place, partner.region, partner.kind, partner.tier, partner.services, partner.email || "", partner.address || "", ...(partner.phones || [])].join(" ").toLowerCase().includes(needle);
+}
+function visible() {
+  return DATA.partners.filter((partner) => {
+    if (state.tier !== "All" && partner.tier !== state.tier) return false;
+    if (state.kind !== "All" && partner.kind !== state.kind) return false;
+    if (state.region !== "All" && partner.region !== state.region) return false;
+    return matches(partner);
+  });
+}
+function chips(items, key, allLabel) {
+  const current = state[key];
+  const all = `<button type="button" class="chip${current === "All" ? " on" : ""}" data-key="${key}" data-value="All">${esc(allLabel)}</button>`;
+  return all + items.map((item) => `<button type="button" class="chip${current === item ? " on" : ""}" data-key="${key}" data-value="${esc(item)}">${esc(item)}</button>`).join("");
+}
+function card(partner) {
+  return `<button type="button" class="card" data-open="${esc(partner.id)}"><span class="card-top"><span class="name">${esc(partner.name)}</span><svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="meta">${esc(partner.kind)} · ${esc(partner.place)}</span><span class="blurb">${esc(partner.services)}</span></button>`;
+}
+function draw() {
+  document.getElementById("tiers").innerHTML = chips(DATA.tiers, "tier", "All tiers");
+  document.getElementById("kinds").innerHTML = chips(DATA.kinds, "kind", "All services");
+  const rows = visible();
+  document.getElementById("count").textContent = "Showing " + rows.length + " of " + DATA.partners.length;
+  if (!rows.length) {
+    list.innerHTML = '<p class="empty">Nothing on the sheet matches that.</p>';
+    return;
+  }
+  if (state.tier === "All") {
+    list.innerHTML = DATA.tiers.map((group) => {
+      const items = rows.filter((partner) => partner.tier === group);
+      if (!items.length) return "";
+      return `<section class="group"><h2>${esc(group)}</h2><div class="grid">${items.map(card).join("")}</div></section>`;
+    }).join("");
+  } else {
+    list.innerHTML = `<div class="grid" style="margin-top:1.5rem">${rows.map(card).join("")}</div>`;
+  }
+}
+function icon(path) {
+  return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${path}</svg>`;
+}
+function openPartner(id) {
+  const partner = DATA.partners.find((item) => item.id === id);
+  if (!partner) return;
+  const socials = Object.entries(partner.socials || {});
+  const extra = DATA.extras[partner.id] || [];
+  const phones = (partner.phones || []).map((phone) => `<a href="${telHref(phone)}">${esc(phone)}</a>`).join("");
+  const bits = [`<div class="row">${icon('<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/>')}<div><dt>Location</dt><dd><a href="${mapsHref(partner)}" target="_blank" rel="noreferrer">${esc(partner.address || partner.place)}</a><span class="sub">${esc(partner.region)}</span></dd></div></div>`];
+  if (phones) bits.push(`<div class="row">${icon('<path d="M6.5 4.5h3l1.5 3.5-2 1.2a12 12 0 0 0 5.8 5.8l1.2-2 3.5 1.5v3A2 2 0 0 1 18 19 14 14 0 0 1 5 6a2 2 0 0 1 1.5-1.5z"/>')}<div><dt>Phone</dt><dd>${phones}</dd></div></div>`);
+  if (partner.email) bits.push(`<div class="row">${icon('<path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>')}<div><dt>Email</dt><dd><a href="mailto:${esc(partner.email)}">${esc(partner.email)}</a></dd></div></div>`);
+  const links = [`<a class="primary" href="${esc(partner.website)}" target="_blank" rel="noreferrer">${esc(hostLabel(partner.website))} <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>`];
+  for (const [key, href] of socials) {
+    links.push(`<a class="ghost" href="${esc(href)}" target="_blank" rel="noreferrer">${esc(DATA.socialLabels[key] || key)}</a>`);
+  }
+  for (const item of extra) {
+    const external = !item.href.startsWith("mailto:") && !item.href.startsWith("tel:");
+    links.push(`<a class="ghost" href="${esc(item.href)}"${external ? ' target="_blank" rel="noreferrer"' : ""}>${esc(item.label)}</a>`);
+  }
+  const missing = !partner.phones?.length && !partner.email ? '<p class="quiet">No public phone or email was readable from their site.</p>' : "";
+  const note = partner.note ? `<p class="note">${esc(partner.note)}</p>` : "";
+  sheet.innerHTML = `<div class="sheet-top"><p class="tier">${esc(partner.tier)} · ${esc(partner.kind)}</p><button type="button" class="close" id="close" aria-label="Close">${icon('<path d="M6 6l12 12M18 6L6 18"/>')}</button></div><h2 id="dossier-title">${esc(partner.name)}</h2><p class="services">${esc(partner.services)}</p><dl>${bits.join("")}</dl>${missing}<div class="links">${links.join("")}</div>${note}`;
+  scrim.hidden = false;
+  document.body.style.overflow = "hidden";
+  history.replaceState(null, "", "#" + partner.id);
+}
+function closePartner() {
+  scrim.hidden = true;
+  document.body.style.overflow = "";
+  sheet.innerHTML = "";
+  history.replaceState(null, "", location.pathname + location.search);
+}
+region.innerHTML = '<option value="All">All regions</option>' + DATA.regions.map((item) => `<option>${esc(item)}</option>`).join("");
+q.addEventListener("input", () => { state.q = q.value; draw(); });
+region.addEventListener("change", () => { state.region = region.value; draw(); });
+document.addEventListener("click", (event) => {
+  const chip = event.target.closest("[data-key]");
+  if (chip) {
+    state[chip.dataset.key] = chip.dataset.value;
+    draw();
+    return;
+  }
+  const opener = event.target.closest("[data-open]");
+  if (opener) openPartner(opener.dataset.open);
+  if (event.target === scrim || event.target.closest("#close")) closePartner();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !scrim.hidden) closePartner();
+});
+window.addEventListener("hashchange", () => {
+  const id = location.hash.replace(/^#/, "");
+  if (id && DATA.partners.some((partner) => partner.id === id)) openPartner(id);
+  else if (!scrim.hidden) closePartner();
+});
+draw();
+if (location.hash) {
+  const id = location.hash.replace(/^#/, "");
+  if (DATA.partners.some((partner) => partner.id === id)) openPartner(id);
+}
+</script>
+</body>
+</html>

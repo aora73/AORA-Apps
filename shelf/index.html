@@ -154,6 +154,7 @@
 </main>
 <script>
 const ROWS = [
+  ["Offroad Attitude & Speed", "Live pitch, roll, yaw, speed and distance with maxima.", "https://aora73.github.io/AORA-Apps/attitude/"],
   ["Drive Straya partners", "Clickable fact sheet of the membership: where they are, what they do, and how to reach them.", "https://aora73.github.io/AORA-Apps/drive-straya/"],
   ["9 caravan experiences", "Queensland Country van guide, with a trip sketch that stays on the phone.", "https://aora73.github.io/AORA-Apps/queensland-country/"],
   ["Incident report", "Blank workplace incident report. It saves on the phone and can make a PDF.", "https://aora73.github.io/AORA-Apps/incident/"],
@@ -182,7 +183,7 @@ function esc(s) {
 function draw() {
   const needle = q.value.trim().toLowerCase();
   const shown = ROWS.filter((row) => !needle || (row[0] + " " + row[1]).toLowerCase().includes(needle));
-    body.innerHTML = shown.map((row) => `<tr>\n    <td class="name">${esc(row[0])}</td>\n    <td class="about">${esc(row[1])}</td>\n    <td class="act"><a class="open" href="${esc(row[2])}">Open</a></td>\n  </tr>`).join("");
+    body.innerHTML = shown.map((row) => `<tr>\n    <td class=\"name\">${esc(row[0])}</td>\n    <td class=\"about\">${esc(row[1])}</td>\n    <td class=\"act\"><a class=\"open\" href=\"${esc(row[2])}\">Open</a></td>\n  </tr>`).join("");
   document.getElementById("count").textContent = shown.length === ROWS.length
     ? ROWS.length + " pieces"
     : shown.length + " of " + ROWS.length;

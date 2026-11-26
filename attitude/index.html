@@ -99,7 +99,7 @@
 </head>
 <body>
   <h1>OFFROAD ATTITUDE</h1>
-  <div class="ver">v4 · pitch & roll</div>
+  <div class="ver">v5 · gravity-based pitch & roll</div>
 
   <button id="permBtn" class="perm-btn">Enable Sensors</button>
 
@@ -177,7 +177,7 @@ let watchId = null;
 
 let calPitch = 0, calRoll = 0;
 let rawPitch = 0, rawRoll = 0;
-let hasOrientation = false;
+let hasMotion = false;
 let currentSpeed = 0;
 
 let currentAltitude = 0;
@@ -194,8 +194,8 @@ function format(n) {
 
 function getDisplayed() {
   return {
-    pitch: hasOrientation ? (rawPitch - calPitch) : 0,
-    roll: hasOrientation ? (rawRoll - calRoll) : 0
+    pitch: hasMotion ? (rawPitch - calPitch) : 0,
+    roll: hasMotion ? (rawRoll - calRoll) : 0
   };
 }
 
@@ -214,10 +214,18 @@ function updateUI() {
   $('totalDescent').textContent = format(totalDescent);
 }
 
-function onOrientation(e) {
-  if (e.beta != null) rawPitch = e.beta;
-  if (e.gamma != null) rawRoll = e.gamma;
-  hasOrientation = true;
+function onMotion(e) {
+  const acc = e.accelerationIncludingGravity;
+  if (!acc) return;
+
+  const x = acc.x || 0;
+  const y = acc.y || 0;
+  const z = acc.z || 0;
+
+  rawPitch = Math.atan2(-x, Math.sqrt(y * y + z * z)) * (180 / Math.PI);
+  rawRoll  = Math.atan2(y, z) * (180 / Math.PI);
+
+  hasMotion = true;
 
   const d = getDisplayed();
   maxPitch = Math.max(maxPitch, Math.abs(d.pitch));
@@ -273,20 +281,20 @@ function onPosError(err) {
 }
 
 async function enableSensors() {
-  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+  if (typeof DeviceMotionEvent.requestPermission === 'function') {
     try {
-      const perm = await DeviceOrientationEvent.requestPermission();
+      const perm = await DeviceMotionEvent.requestPermission();
       if (perm !== 'granted') {
-        $('status').textContent = 'Orientation permission denied';
+        $('status').textContent = 'Motion permission denied';
         return;
       }
     } catch (e) {
-      $('status').textContent = 'Orientation permission error';
+      $('status').textContent = 'Motion permission error';
       return;
     }
   }
 
-  window.addEventListener('deviceorientation', onOrientation, true);
+  window.addEventListener('devicemotion', onMotion, true);
 
   if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(onPosition, onPosError, {
@@ -303,7 +311,7 @@ async function enableSensors() {
 }
 
 function resetAll() {
-  if (hasOrientation) {
+  if (hasMotion) {
     calPitch = rawPitch;
     calRoll = rawRoll;
   } else {
@@ -323,9 +331,9 @@ function resetAll() {
   lastAltTime = Date.now();
 
   updateUI();
-  $('status').textContent = hasOrientation
+  $('status').textContent = hasMotion
     ? 'Calibrated • variation from this point • climb/descent reset'
-    : 'No orientation data yet — enable sensors first';
+    : 'No motion data yet — enable sensors first';
 }
 
 $('permBtn').addEventListener('click', enableSensors);

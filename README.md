@@ -73,4 +73,5 @@ Live pitch, roll, yaw, speed and distance with maxima. Uses device orientation a
 
 Hour-by-hour rain from five models, scored against the nearest gauge.
 
+- Live: https://rain-forecast.grok.me/
 - Repo: https://github.com/aora73/rainline

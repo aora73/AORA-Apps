@@ -68,3 +68,9 @@ Live pitch, roll, yaw, speed and distance with maxima. Uses device orientation a
 
 - Live: https://aora73.github.io/AORA-Apps/attitude/
 - Source in this repo: `attitude/`
+
+## Rainline
+
+Hour-by-hour rain from five models, scored against the nearest gauge.
+
+- Repo: https://github.com/aora73/rainline

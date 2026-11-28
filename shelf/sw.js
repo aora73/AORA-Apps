@@ -1,4 +1,4 @@
-const CACHE = "aora-shelf-v4";
+const CACHE = "aora-shelf-v5";
 const FILES = [
   "./",
   "./index.html",

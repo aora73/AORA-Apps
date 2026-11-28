@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drive Straya ambassadors</title>
+<meta name="description" content="Drive Straya ambassadors listed by Australian state. Prepared by Dingo Dave and the Australian Offroad Academy.">
+<meta name="theme-color" content="#1e2a20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e2a20'/%3E%3Cpath d='M6 22h20M8 22V12l8-5 8 5v10' fill='none' stroke='%23a6842c' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23c4622d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=Outfit:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --parchment: #f3eadc; --card: #fffaf3; --ink: #1c1610; --dust: #6d6156;
+    --line: #e4d8c6; --ochre: #c4622d; --bush: #1e2a20; --gold: #a6842c;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--parchment); color: var(--ink); }
+  body {
+    margin: 0; min-height: 100vh; font-family: Outfit, system-ui, sans-serif;
+    background: radial-gradient(1200px 480px at 100% -10%, rgb(196 98 45 / 0.14), transparent 55%), var(--parchment);
+  }
+  a { color: inherit; }
+  main { width: min(72rem, calc(100% - 2rem)); margin: 0 auto; padding: 1rem 0 5rem; }
+  .hero { overflow: hidden; border-radius: 1.5rem; background: var(--bush); color: var(--parchment); }
+  .hero-pad { display: flex; flex-direction: column; gap: 1.5rem; padding: 1.25rem; }
+  .kicker { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .eyebrow { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 0.875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .back { font-size: 0.875rem; color: rgb(243 234 220 / 0.8); }
+  h1 { margin: 0; max-width: 16ch; font-family: Fraunces, Georgia, serif; font-weight: 560; font-size: 2.5rem; line-height: 0.95; }
+  .lede { margin: 1rem 0 0; max-width: 40rem; font-size: 1rem; line-height: 1.55; color: rgb(243 234 220 / 0.85); }
+  section { margin-top: 2rem; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
+  h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 560; font-size: 1.5rem; }
+  .count { margin: 0; color: var(--dust); font-size: 0.875rem; }
+  .empty { margin: 0.5rem 0 0; padding-top: 0.75rem; border-top: 1px solid var(--line); color: var(--dust); font-size: 0.875rem; }
+  .stack { display: grid; gap: 0.75rem; margin-top: 0.75rem; }
+  .card {
+    border: 1px solid var(--line); border-radius: 1rem; background: var(--card);
+    box-shadow: 0 18px 50px rgb(28 22 16 / 0.12); padding: 1rem;
+  }
+  .top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+  h3 { margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 560; font-size: 1.5rem; line-height: 1.15; }
+  .meta { margin: 0.25rem 0 0; color: var(--dust); font-size: 0.875rem; }
+  .where { margin: 0; color: var(--ochre); font-size: 0.875rem; }
+  .where span { color: var(--dust); }
+  .bio { margin: 0.75rem 0 0; font-size: 1rem; line-height: 1.5; color: rgb(28 22 16 / 0.85); }
+  .note { margin: 0.75rem 0 0; color: var(--dust); font-size: 0.875rem; line-height: 1.5; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .links a {
+    display: inline-flex; min-height: 2.75rem; align-items: center; border-radius: 999px;
+    padding: 0 1rem; text-decoration: none; font-size: 0.875rem;
+  }
+  .primary { background: var(--ochre); color: var(--parchment); }
+  .ghost { border: 1px solid var(--line); background: var(--parchment); }
+  footer { margin-top: 3rem; max-width: 46rem; color: var(--dust); font-size: 0.875rem; line-height: 1.55; }
+  @media (min-width: 640px) {
+    main { width: min(72rem, calc(100% - 3rem)); padding-top: 1.5rem; }
+    .hero-pad { padding: 2rem; }
+    h1 { font-size: 3.75rem; }
+    .lede { font-size: 1.125rem; }
+    .card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="hero-pad">
+      <div class="kicker">
+        <p class="eyebrow">AORA · Dingo Dave</p>
+        <a class="back" href="index.html">Partner sheet</a>
+      </div>
+      <div>
+        <h1>Ambassadors by state</h1>
+        <p class="lede">The people Drive Straya names to speak for a place. Every published ambassador is in Queensland. The other states are still open.</p>
+      </div>
+    </div>
+  </header>
+  <section><div class="head"><h2>Queensland</h2><p class="count">8</p></div><div class="stack"><article class="card">
+  <div class="top">
+    <div>
+      <h3>Dave “Dingo” Darmody</h3>
+      <p class="meta">Founder and principal instructor · Australian Offroad Academy</p>
+    </div>
+    <p class="where">Hervey Bay <span>· Fraser Coast</span></p>
+  </div>
+  <p class="bio">Welcomed as a Drive Ambassador on 12 November 2026, when Australian Offroad Academy joined the Drive Straya family. He teaches practical 4WD, towing, touring and recovery, and delivers that training Australia-wide from Hervey Bay.</p>
+  <p class="note">Announced by Drive Straya. Not yet on the published ambassadors page while drivestraya.com is under construction.</p>
+  <div class="links"><a class="primary" href="https://www.australianoffroadacademy.com.au/" target="_blank" rel="noreferrer">australianoffroadacademy.com.au</a><a class="ghost" href="index.html#aora">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Kylie Rixon</h3>
+      <p class="meta">Owner operator · Sunset Tourist Park</p>
+    </div>
+    <p class="where">Mount Isa <span>· Outback Queensland</span></p>
+  </div>
+  <p class="bio">I have red dirt running through my veins, that’s how passionate I am about Outback Queensland. I am based in Mount Isa, where you can go from sand dunes in the south, to the gulf country in the north, world class attractions in the east and knocking on the door of the NT just 200 km to the west. If you are looking for adventures that will stay with you for a lifetime, come and see the other side of Queensland.</p>
+  
+  <div class="links"><a class="primary" href="https://www.sunsettop.com.au/" target="_blank" rel="noreferrer">sunsettop.com.au</a><a class="ghost" href="index.html#sunset">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Richard Kinnon</h3>
+      <p class="meta">Founder · Outback Pioneers</p>
+    </div>
+    <p class="where">Longreach <span>· Outback Queensland</span></p>
+  </div>
+  <p class="bio">My passion for all things outback and Australian drives everything I do, especially through our award-winning Outback Pioneers tourism business in Longreach. For me, the greatest reward is seeing our city cousins come out here to reconnect with their heritage and experience the outback spirit. I’m always up for a yarn, and I’m deeply committed to putting Outback Queensland on the map.</p>
+  
+  <div class="links"><a class="primary" href="https://www.outbackpioneers.com.au/" target="_blank" rel="noreferrer">outbackpioneers.com.au</a><a class="ghost" href="index.html#pioneers">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Nadine Lorenz</h3>
+      <p class="meta">Manager, visitor services and membership · Mackay Isaac Tourism</p>
+    </div>
+    <p class="where">Mackay <span>· Mackay Isaac</span></p>
+  </div>
+  <p class="bio">I am a proud Mackay local. I spent eight years with Diamantina Shire Council in Birdsville, and I’m now back in Mackay with Mackay Isaac Tourism. The region runs from pristine beaches and Eungella rainforest to the Isaac mining country. As an ambassador I point travellers to drive itineraries that show the best of it.</p>
+  
+  <div class="links"><a class="primary" href="https://www.mackayisaac.com/" target="_blank" rel="noreferrer">mackayisaac.com</a><a class="ghost" href="index.html#mackay-isaac">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Brooke Turner</h3>
+      <p class="meta">Manager · Broadwater Tourist Park</p>
+    </div>
+    <p class="where">Gold Coast <span>· Gold Coast</span></p>
+  </div>
+  <p class="bio">When I was six, my parents took our family of six into caravan park management on the Gold Coast. I grew up in the caravanning industry, graduated with a double degree in business and international tourism and hotel management in 2022, and in 2023 took a business development role with the Caravan Park Association of Queensland. I now manage Broadwater Tourist Park with my partner.</p>
+  
+  <div class="links"><a class="primary" href="https://goldcoasttouristparks.com.au/" target="_blank" rel="noreferrer">goldcoasttouristparks.com.au</a><a class="ghost" href="index.html#gctp">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Patrice Brandenburg</h3>
+      <p class="meta">Director, communities · Diamantina Shire Council</p>
+    </div>
+    <p class="where">Birdsville <span>· Outback Queensland</span></p>
+  </div>
+  <p class="bio">I’m proud to represent the Diamantina Shire in far western Queensland. I arrived in Birdsville in 2023 after more than 20 years in major events, and fell for the town and the 94,000 square kilometres around it — the gateway to Munga-Thirri–Simpson Desert National Park. I help travellers plan drives through Birdsville, Bedourie and Betoota.</p>
+  
+  <div class="links"><a class="primary" href="https://www.thediamantina.com.au/Home" target="_blank" rel="noreferrer">thediamantina.com.au</a><a class="ghost" href="index.html#diamantina">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Glenda Daly</h3>
+      <p class="meta">Manager, business development and strategy · Cobbold Gorge</p>
+    </div>
+    <p class="where">Forsayth <span>· Far North Queensland</span></p>
+  </div>
+  <p class="bio">I grew up on a wheat and sheep farm in central-west New South Wales. Six years as an overland driver and tour leader in Africa set the course, then resort management, six years in Longreach, and from 2014 Cobbold Gorge — first as marketing manager, then general manager. I’ve worked in the industry for 30 years and I’m glad to be an ambassador for the state, the regions and the destinations.</p>
+  
+  <div class="links"><a class="primary" href="https://www.cobboldgorge.com.au/" target="_blank" rel="noreferrer">cobboldgorge.com.au</a><a class="ghost" href="index.html#cobbold">Partner sheet</a></div>
+</article><article class="card">
+  <div class="top">
+    <div>
+      <h3>Kelly Cattanach</h3>
+      <p class="meta">Business development manager · Habitat Noosa</p>
+    </div>
+    <p class="where">Boreen Point <span>· Sunshine Coast</span></p>
+  </div>
+  <p class="bio">Named among the Drive Queensland ambassadors in the 2026 partnership prospectus, for Habitat Noosa and the Everglades Eco Camp on Lake Cootharaba. The public ambassadors page does not currently carry a biography.</p>
+  <p class="note">Listed in the 2026 prospectus, not on the ambassadors page.</p>
+  <div class="links"><a class="primary" href="https://habitatnoosa.com.au/" target="_blank" rel="noreferrer">habitatnoosa.com.au</a></div>
+</article></div></section><section><div class="head"><h2>New South Wales</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for New South Wales.</p></section><section><div class="head"><h2>Victoria</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for Victoria.</p></section><section><div class="head"><h2>South Australia</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for South Australia.</p></section><section><div class="head"><h2>Western Australia</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for Western Australia.</p></section><section><div class="head"><h2>Tasmania</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for Tasmania.</p></section><section><div class="head"><h2>Northern Territory</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for Northern Territory.</p></section><section><div class="head"><h2>Australian Capital Territory</h2><p class="count">None published</p></div><p class="empty">No Drive Ambassador published for Australian Capital Territory.</p></section>
+  <footer>Names and words are from the Drive Queensland ambassadors page, the 2026 partnership prospectus, and the 12 November 2026 welcome for Dave “Dingo” Darmody. Drive Straya is the public name of that network.</footer>
+</main>
+</body>
+</html>
